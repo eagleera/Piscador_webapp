@@ -2,6 +2,8 @@ import Vue from "vue";
 import Router from "vue-router";
 import Layout from "./views/Layout.vue";
 import Workers from "./views/Workers.vue";
+import Roles from "./views/Roles.vue";
+import Diario from "./views/Diario.vue";
 
 Vue.use(Router);
 
@@ -15,10 +17,16 @@ export default new Router({
       component: Layout,
       children: [
         {
-          // UserProfile will be rendered inside User's <router-view>
-          // when /user/:id/profile is matched
           path: "workers",
           component: Workers
+        },
+        {
+          path: "roles",
+          component: Roles
+        },
+        {
+          path: "diary",
+          component: Diario
         }
       ]
     }

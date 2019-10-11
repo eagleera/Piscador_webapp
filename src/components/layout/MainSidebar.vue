@@ -63,6 +63,20 @@
             <div class="item-icon-wrapper" />
           </d-link>
         </li>
+        <li class="nav-item dropdown">
+          <d-link class="nav-link" to="/roles">
+            <font-awesome-icon icon="chess" class="mr2" />
+            <span>Roles</span>
+            <div class="item-icon-wrapper" />
+          </d-link>
+        </li>
+        <li class="nav-item dropdown">
+          <d-link class="nav-link" to="/diary">
+            <font-awesome-icon icon="book" class="mr2" />
+            <span>Diario</span>
+            <div class="item-icon-wrapper" />
+          </d-link>
+        </li>
       </d-nav>
     </div>
   </aside>
@@ -99,7 +113,7 @@ export default {
     display: block;
   }
 }
-.v-btm-txt{
+.v-btm-txt {
   vertical-align: text-bottom;
 }
 </style>

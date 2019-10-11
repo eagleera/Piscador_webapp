@@ -1,7 +1,13 @@
 <template>
   <d-container fluid class="main-content-container px-4">
     <div class="pa3">
-      <h1>Trabajadores</h1>
+      <h1 class="dib">Diario</h1>
+      <d-input-group size="sm" class="date-range justify-content-left w-auto-ns inline-flex ml4">
+          <d-datepicker placeholder="Start Date" typeable small />
+          <d-input-group-text slot="append">
+            <font-awesome-icon icon="search" />
+          </d-input-group-text>
+        </d-input-group>
     </div>
     <div class="row">
       <div class="col-4">
@@ -19,20 +25,8 @@
                   <form action>
                     <div class="form-row">
                       <div class="form-group col-12">
-                        <label for="name">Nombre</label>
-                        <input
-                          id="name"
-                          type="text"
-                          placeholder="Daniel"
-                          class="form-control"
-                        />
-                      </div>
-                      <div class="form-group col-12">
-                        <label for="rol">Rol</label>
-                        <select id="rol" class="form-control custom-select">
-                          <option disabled selected>Elegir...</option>
-                          <option>...</option>
-                        </select>
+                        <label for="price">Paga</label>
+                        <input id="price" type="text" placeholder="$300" class="form-control" />
                       </div>
                     </div>
                   </form>

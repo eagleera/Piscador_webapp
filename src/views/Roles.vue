@@ -1,7 +1,7 @@
 <template>
   <d-container fluid class="main-content-container px-4">
     <div class="pa3">
-      <h1>Trabajadores</h1>
+      <h1>Roles</h1>
     </div>
     <div class="row">
       <div class="col-4">
@@ -19,20 +19,13 @@
                   <form action>
                     <div class="form-row">
                       <div class="form-group col-12">
-                        <label for="name">Nombre</label>
+                        <label for="price">Paga</label>
                         <input
-                          id="name"
+                          id="price"
                           type="text"
-                          placeholder="Daniel"
+                          placeholder="$300"
                           class="form-control"
                         />
-                      </div>
-                      <div class="form-group col-12">
-                        <label for="rol">Rol</label>
-                        <select id="rol" class="form-control custom-select">
-                          <option disabled selected>Elegir...</option>
-                          <option>...</option>
-                        </select>
                       </div>
                     </div>
                   </form>
