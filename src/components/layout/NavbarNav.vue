@@ -3,7 +3,8 @@
     <li class="nav-item border-right dropdown notifications">
       <a class="nav-link nav-link-icon text-center" v-d-toggle.notifications>
         <div class="nav-link-icon__wrapper">
-          <i class="material-icons">&#xE7F4;</i>
+          <!-- <i class="material-icons">&#xE7F4;</i> -->
+          <font-awesome-icon icon="bell" size="2x" class="mt2" />
           <d-badge pill theme="danger">2</d-badge>
         </div>
       </a>

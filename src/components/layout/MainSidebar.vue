@@ -13,17 +13,18 @@
       <nav
         class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0"
       >
-        <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
+        <a class="navbar-brand w-100 mr-0" href="/" style="line-height: 25px;">
           <div class="d-table m-auto">
-            <img
+            <!-- <img
               id="main-logo"
               class="d-inline-block align-top mr-1"
               style="max-width: 25px;"
               src="@/assets/logo.png"
-              alt="Shards Dashboard"
-            />
-            <span class="d-none d-md-inline ml-1">
-              Shards Dashboard
+              alt="Piscador"
+            /> -->
+            <font-awesome-icon icon="leaf" size="2x" />
+            <span class="d-none d-md-inline ml-1 v-btm-txt">
+              Piscador
             </span>
           </div>
         </a>
@@ -42,14 +43,12 @@
     >
       <div class="input-group input-group-seamless ml-3">
         <div class="input-group-prepend">
-          <div class="input-group-text">
-            <i class="fas fa-search"></i>
-          </div>
+          <font-awesome-icon icon="search" />
         </div>
         <input
           class="navbar-search form-control"
           type="text"
-          placeholder="Search for something..."
+          placeholder="Busca algo..."
           aria-label="Search"
         />
       </div>
@@ -58,11 +57,9 @@
     <div class="nav-wrapper">
       <d-nav class="flex-column">
         <li class="nav-item dropdown">
-          <d-link class="nav-link" to="/home">
-            <div class="item-icon-wrapper">
-              <i class="material-icons">&#xE8B8;</i>
-            </div>
-            <span>Simon</span>
+          <d-link class="nav-link" to="/workers">
+            <font-awesome-icon icon="users" class="mr2" />
+            <span>Trabajadores</span>
             <div class="item-icon-wrapper" />
           </d-link>
         </li>
@@ -101,5 +98,8 @@ export default {
   .dropdown-menu {
     display: block;
   }
+}
+.v-btm-txt{
+  vertical-align: text-bottom;
 }
 </style>
