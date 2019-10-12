@@ -21,7 +21,7 @@
             <h6 class="m-0">Lista de la semana</h6>
           </div>
           <div class="card-body p-0 pb-3 text-center ">
-            <table class="table mb-0">
+            <table class="table mb-0 table-responsive">
               <thead class="bg-light">
                 <tr>
                   <th scope="col" class="border-0" width="100">#</th>
