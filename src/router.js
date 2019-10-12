@@ -5,6 +5,7 @@ import Workers from "./views/Workers.vue";
 import Roles from "./views/Roles.vue";
 import Diario from "./views/Diario.vue";
 import Asistencia from "./views/Asistencia.vue";
+import Paga from "./views/Paga.vue";
 
 Vue.use(Router);
 
@@ -32,6 +33,10 @@ export default new Router({
         {
           path: "assistance",
           component: Asistencia
+        },
+        {
+          path: "payday",
+          component: Paga
         }
       ]
     }

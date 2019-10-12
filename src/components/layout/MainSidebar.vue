@@ -78,6 +78,13 @@
           </d-link>
         </li>
         <li class="nav-item dropdown">
+          <d-link class="nav-link" to="/payday">
+            <font-awesome-icon icon="money-bill-wave" class="mr2" />
+            <span>Paga</span>
+            <div class="item-icon-wrapper" />
+          </d-link>
+        </li>
+        <li class="nav-item dropdown">
           <d-link class="nav-link" to="/diary">
             <font-awesome-icon icon="book" class="mr2" />
             <span>Diario</span>

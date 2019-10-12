@@ -14,16 +14,16 @@
       <button class="btn btn-primary float-right mt4">Guardar</button>
     </div>
     <div class="row mt4">
-      <div class="col">
+      <div class="col-8 offset-2">
         <div class="card card-small mb-4">
           <div class="card-header border-bottom">
             <h6 class="m-0">Lista de empleados</h6>
           </div>
-          <div class="card-body p-0 pb-3 text-center">
+          <div class="card-body p-0 pb-3 text-center ">
             <table class="table mb-0">
               <thead class="bg-light">
                 <tr>
-                  <th scope="col" class="border-0">#</th>
+                  <th scope="col" class="border-0" width="100">#</th>
                   <th scope="col" class="border-0">Nombre</th>
                   <th scope="col" class="border-0 tl" width="150">Estado</th>
                 </tr>
