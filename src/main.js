@@ -10,7 +10,9 @@ import {
   faUsers,
   faLeaf,
   faChess,
-  faBook
+  faBook,
+  faBars,
+  faHandPointLeft
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -19,7 +21,16 @@ import "@/scss/shards-dashboards.scss";
 import "@/assets/scss/date-range.scss";
 import "tachyons";
 
-library.add(faSearch, faBell, faUsers, faLeaf, faChess, faBook);
+library.add(
+  faSearch,
+  faBell,
+  faUsers,
+  faLeaf,
+  faChess,
+  faBook,
+  faBars,
+  faHandPointLeft
+);
 Vue.config.productionTip = false;
 Vue.prototype.$eventHub = new Vue();
 Vue.component("font-awesome-icon", FontAwesomeIcon);

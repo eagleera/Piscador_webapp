@@ -32,7 +32,7 @@
           class="toggle-sidebar d-sm-inline d-md-none d-lg-none"
           @click="handleToggleSidebar()"
         >
-          <i class="material-icons">&#xE5C4;</i>
+          <font-awesome-icon icon="hand-point-left" size="lg" />
         </a>
       </nav>
     </div>
