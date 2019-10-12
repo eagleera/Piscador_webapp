@@ -12,7 +12,8 @@ import {
   faChess,
   faBook,
   faBars,
-  faHandPointLeft
+  faHandPointLeft,
+  faClipboardCheck
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -29,7 +30,8 @@ library.add(
   faChess,
   faBook,
   faBars,
-  faHandPointLeft
+  faHandPointLeft,
+  faClipboardCheck
 );
 Vue.config.productionTip = false;
 Vue.prototype.$eventHub = new Vue();

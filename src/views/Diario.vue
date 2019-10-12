@@ -2,7 +2,10 @@
   <d-container fluid class="main-content-container px-4">
     <div class="pa3">
       <h1 class="dib">Diario</h1>
-      <d-input-group size="sm" class="date-range justify-content-left w-auto-ns inline-flex ml4">
+      <d-input-group
+        size="sm"
+        class="date-range justify-content-left w-auto-ns inline-flex ml4"
+      >
         <d-datepicker placeholder="Start Date" typeable small />
         <d-input-group-text slot="append">
           <font-awesome-icon icon="search" />
@@ -19,7 +22,12 @@
             <form>
               <div class="form-group">
                 <label for="toneladas">Toneladas</label>
-                <input id="toneladas" type="number" placeholder="32" class="form-control" />
+                <input
+                  id="toneladas"
+                  type="number"
+                  placeholder="32"
+                  class="form-control"
+                />
               </div>
               <div class="form-group">
                 <label for="toneladas">Notas</label>

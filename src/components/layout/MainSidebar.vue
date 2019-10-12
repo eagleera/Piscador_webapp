@@ -71,6 +71,13 @@
           </d-link>
         </li>
         <li class="nav-item dropdown">
+          <d-link class="nav-link" to="/assistance">
+            <font-awesome-icon icon="clipboard-check" class="mr2" />
+            <span>Asistencia</span>
+            <div class="item-icon-wrapper" />
+          </d-link>
+        </li>
+        <li class="nav-item dropdown">
           <d-link class="nav-link" to="/diary">
             <font-awesome-icon icon="book" class="mr2" />
             <span>Diario</span>
