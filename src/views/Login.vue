@@ -59,6 +59,8 @@ export default {
       this.$store.dispatch(`${storeModule}/tryLogin`, {
         email: this.email,
         password: this.password
+      }).then(()=>{
+        this.$router.push('/home')
       });
     }
   }

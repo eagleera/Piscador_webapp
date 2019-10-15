@@ -4,23 +4,43 @@ const state = {
   user: null
 };
 const getters = {
-  getUserName: state => state.user
+  getUser: state => state.user
 };
 const mutations = {
-  LOG_USER(state, userName) {
-    state.userName = userName;
+  LOG_USER(state, user) {
+    state.user = user;
+  },
+  REGISTER_USER(state, user) {
+    state.user = user;
   }
 };
 const actions = {
   tryLogin({ commit }, data) {
-    console.log(data);
     sessionApi.tryLogin(
       data,
       result => {
-        commit("LOG_USER", result.data.user);
+        console.log(result.data.token);
+        console.log(data.email);
+        if (result.data.token) {
+          localStorage.setItem("user-token", result.data.token);
+          commit("LOG_USER", result.data.user);
+        }
       },
       error => {
+        console.log(error);
         return error;
+      }
+    );
+  },
+  tryRegister({ commit }, data) {
+    sessionApi.tryRegister(
+      data,
+      result => {
+        console.log(result.data.user);
+        commit("REGISTER_USER", result.data.user);
+      },
+      error => {
+        console.log(error);
       }
     );
   }

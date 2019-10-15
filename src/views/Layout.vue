@@ -11,7 +11,7 @@
         sm="12"
       >
         <!-- Main Navbar -->
-        <main-navbar :userName="getUserName" />
+        <main-navbar :userName="getUser.name" />
 
         <!-- Content -->
         <router-view></router-view>
@@ -30,7 +30,7 @@ import MainSidebar from "@/components/layout/MainSidebar.vue";
 import MainFooter from "@/components/layout/MainFooter.vue";
 import { mapGetters } from "vuex";
 
-let storeModule = "dashboard";
+let storeModule = "session";
 
 export default {
   name: "home",
@@ -40,7 +40,7 @@ export default {
     MainFooter
   },
   computed: {
-    ...mapGetters(storeModule, ["getUserName"])
+    ...mapGetters(storeModule, ["getUser"])
   },
   methods: {
     getUserSession() {
