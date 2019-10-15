@@ -1,4 +1,4 @@
 export default {
-  host: process.env.API_HOST || "https://pokeapi.co/api/v2",
+  host: process.env.API_HOST || "http://api.piscador",
   port: process.env.API_PORT || 3000
 };
