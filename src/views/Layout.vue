@@ -11,7 +11,7 @@
         sm="12"
       >
         <!-- Main Navbar -->
-        <main-navbar :userName="getUser.name" />
+        <main-navbar :userName="getUser" />
 
         <!-- Content -->
         <router-view></router-view>

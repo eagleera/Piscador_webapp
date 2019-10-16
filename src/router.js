@@ -1,4 +1,5 @@
 import Vue from "vue";
+import store from "./store/index";
 import Layout from "./views/Layout.vue";
 import Router from "vue-router";
 import Workers from "./views/Workers.vue";
@@ -11,7 +12,7 @@ import Register from "./views/Register.vue";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
@@ -54,3 +55,21 @@ export default new Router({
     }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  store.dispatch("session/fetchAccessToken");
+  console.log(store.state.session.accessToken);
+  if (to.fullPath === "/home") {
+    if (!store.state.session.accessToken) {
+      next("/");
+    }
+  }
+  if (to.fullPath === "/") {
+    if (store.state.session.accessToken) {
+      next("/home");
+    }
+  }
+  next();
+});
+
+export default router;

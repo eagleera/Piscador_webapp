@@ -55,7 +55,6 @@ export default {
   },
   methods: {
     login() {
-      console.log(this.$store);
       this.$store.dispatch(`${storeModule}/tryLogin`, {
         email: this.email,
         password: this.password

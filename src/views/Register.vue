@@ -72,14 +72,13 @@ export default {
   },
   methods: {
     register(){
-      console.log(this.email);
       this.$store.dispatch(`${storeModule}/tryRegister`, {
         email: this.email,
         name: this.name,
         password: this.password,
         password_confirmation: this.password_confirmation
       }).then(()=>{
-        this.$router.push('/home')
+        this.$router.push('/')
       });
     }
   }
