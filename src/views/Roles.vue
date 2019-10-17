@@ -1,16 +1,71 @@
 <template>
   <d-container fluid class="main-content-container px-4">
     <div class="pa3">
-      <h1>Roles</h1>
+      <h1>
+        Roles
+        <button class="btn btn-primary fr" @click="toggleAddRol">
+          Agregar nuevo
+          <font-awesome-icon icon="plus" />
+        </button>
+      </h1>
     </div>
     <div class="row">
-      <div class="col-4">
-        <div class="card">Agregar Nuevo</div>
-      </div>
-      <div class="col-4">
-        <div class="card">
+      <div class="col-4" v-if="toggleRol">
+        <div class="card h-100">
           <div class="border-bottom card-header">
-            <h6 class="mb0">Nombre</h6>
+            <label for="price">Nombre</label>
+            <input class="form-control" type="text" v-model="name" />
+          </div>
+          <div class="list-group list-group-flush">
+            <div class="p3 list-group-item">
+              <div class="row">
+                <div class="col">
+                  <div class="form-row">
+                    <div class="form-group col-12">
+                      <label for="price">Paga</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">$</div>
+                        </div>
+                        <input
+                          id="price"
+                          type="text"
+                          placeholder="$300"
+                          class="form-control"
+                          v-model="cantidad"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group col-12">
+                      <label for="tipo">Tipo</label>
+                      <div class="input-group">
+                        <select
+                          v-model="tipo_id"
+                          id="tipo"
+                          class="form-control"
+                        >
+                          <option
+                            :value="type.id"
+                            v-for="type in getTypes"
+                            v-bind:key="type.id"
+                          >
+                            {{ type.nombre }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <button class="btn btn-success col-12">Guardar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4" v-for="rol in getRoles" v-bind:key="rol.id">
+        <div class="card h-100">
+          <div class="border-bottom card-header">
+            <h6 class="mb0">{{ rol.nombre }}</h6>
           </div>
           <div class="list-group list-group-flush">
             <div class="p3 list-group-item">
@@ -20,12 +75,36 @@
                     <div class="form-row">
                       <div class="form-group col-12">
                         <label for="price">Paga</label>
-                        <input
-                          id="price"
-                          type="text"
-                          placeholder="$300"
-                          class="form-control"
-                        />
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">$</div>
+                          </div>
+                          <input
+                            id="price"
+                            type="text"
+                            placeholder="$300"
+                            class="form-control"
+                            v-model="rol.cantidad"
+                          />
+                        </div>
+                      </div>
+                      <div class="form-group col-12">
+                        <label for="tipo">Tipo</label>
+                        <div class="input-group">
+                          <select
+                            v-model="rol.tipo_id"
+                            id="tipo"
+                            class="form-control"
+                          >
+                            <option
+                              :value="type.id"
+                              v-for="type in getTypes"
+                              v-bind:key="type.id"
+                            >
+                              {{ type.nombre }}
+                            </option>
+                          </select>
+                        </div>
                       </div>
                     </div>
                   </form>
@@ -38,3 +117,38 @@
     </div>
   </d-container>
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+let storeModule = "roles";
+
+export default {
+  name: "Roles",
+  data() {
+    return {
+      toggleRol: false,
+      name: "",
+      cantidad: 0,
+      tipo_id: null
+    };
+  },
+  methods: {
+    toggleAddRol() {
+      this.toggleRol = true;
+    },
+    obtainRoles() {
+      this.$store.dispatch(`${storeModule}/get`);
+    },
+    obtainTypes() {
+      this.$store.dispatch(`${storeModule}/getTypes`);
+    }
+  },
+  computed: {
+    ...mapGetters(storeModule, ["getRoles", "getTypes"])
+  },
+  mounted() {
+    this.obtainRoles();
+    this.obtainTypes();
+  }
+};
+</script>

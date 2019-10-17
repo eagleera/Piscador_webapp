@@ -14,7 +14,8 @@ import {
   faBars,
   faHandPointLeft,
   faClipboardCheck,
-  faMoneyBillWave
+  faMoneyBillWave,
+  faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -33,7 +34,8 @@ library.add(
   faBars,
   faHandPointLeft,
   faClipboardCheck,
-  faMoneyBillWave
+  faMoneyBillWave,
+  faPlus
 );
 Vue.config.productionTip = false;
 Vue.prototype.$eventHub = new Vue();
