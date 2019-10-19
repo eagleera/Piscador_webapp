@@ -10,11 +10,11 @@
       </h1>
     </div>
     <div class="row">
-      <div class="col-4" v-if="toggleRol">
+      <div class="col-4 mb4" v-if="toggleRol">
         <div class="card h-100">
           <div class="border-bottom card-header">
             <label for="price">Nombre</label>
-            <input class="form-control" type="text" v-model="name" />
+            <input class="form-control" type="text" v-model="nombre" />
           </div>
           <div class="list-group list-group-flush">
             <div class="p3 list-group-item">
@@ -29,7 +29,8 @@
                         </div>
                         <input
                           id="price"
-                          type="text"
+                          type="number"
+                          step="0.01"
                           placeholder="$300"
                           class="form-control"
                           v-model="cantidad"
@@ -54,7 +55,9 @@
                         </select>
                       </div>
                     </div>
-                    <button class="btn btn-success col-12">Guardar</button>
+                    <button class="btn btn-success col-12" @click="addRol">
+                      Guardar
+                    </button>
                   </div>
                 </div>
               </div>
@@ -62,7 +65,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4" v-for="rol in getRoles" v-bind:key="rol.id">
+      <div class="col-4 mb4" v-for="rol in getRoles" v-bind:key="rol.id">
         <div class="card h-100">
           <div class="border-bottom card-header">
             <h6 class="mb0">{{ rol.nombre }}</h6>
@@ -127,7 +130,7 @@ export default {
   data() {
     return {
       toggleRol: false,
-      name: "",
+      nombre: "",
       cantidad: 0,
       tipo_id: null
     };
@@ -141,6 +144,19 @@ export default {
     },
     obtainTypes() {
       this.$store.dispatch(`${storeModule}/getTypes`);
+    },
+    addRol() {
+      const data = {
+        nombre: this.nombre,
+        cantidad: this.cantidad,
+        tipo_id: this.tipo_id
+      };
+      this.$store.dispatch(`${storeModule}/post`, data).then(() => {
+        this.nombre = "";
+        this.cantidad = 0;
+        this.tipo_id = null;
+        this.toggleRol = false;
+      });
     }
   },
   computed: {

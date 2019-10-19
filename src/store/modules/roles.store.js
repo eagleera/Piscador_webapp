@@ -13,7 +13,7 @@ const mutations = {
     state.roles = roles;
   },
   ADD_ROLE(state, role) {
-    state.roles.push(role);
+    state.roles.unshift(role);
   },
   INIT_TYPES(state, types) {
     state.types = types;
@@ -36,6 +36,18 @@ const actions = {
       result => {
         console.log(result.data);
         commit("INIT_TYPES", result.data);
+      },
+      error => {
+        return error;
+      }
+    );
+  },
+  post({ commit }, data) {
+    rolesApi.post(
+      data,
+      result => {
+        console.log(result.data);
+        commit("ADD_ROLE", data);
       },
       error => {
         return error;
