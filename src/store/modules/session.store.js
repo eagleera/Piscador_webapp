@@ -1,4 +1,5 @@
 import sessionApi from "@/api/session.api";
+import router from "@/router";
 
 const state = {
   user: null,
@@ -6,7 +7,8 @@ const state = {
   loggedIn: false
 };
 const getters = {
-  getUser: state => state.user
+  getUser: state => state.user,
+  getLoggedIn: state => state.loggedIn
 };
 const mutations = {
   LOG_USER(state, token) {
@@ -32,6 +34,7 @@ const actions = {
           localStorage.setItem("accessToken", result.data.token);
           commit("LOG_USER", result.data.token);
         }
+        router.push("/assistance");
       },
       error => {
         return error;
@@ -43,14 +46,12 @@ const actions = {
       data,
       result => {
         commit("REGISTER_USER", result.data.user);
+        router.push("/");
       },
       error => {
         return error;
       }
     );
-  },
-  getUserSession({ commit }){
-    
   },
   fetchAccessToken({ commit }) {
     commit("UPDATE_ACCES_TOKEN", localStorage.getItem("accessToken"));

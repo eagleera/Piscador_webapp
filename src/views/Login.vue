@@ -1,7 +1,7 @@
 <template>
   <d-container fluid>
     <div class="row">
-      <div class="offset-4 col-4">
+      <div class="col-12 col-md-4 offset-md-4">
         <div class="card">
           <div class="card-header border-bottom">
             <h1 class="mb0 mt0">Iniciar Sesión</h1>
@@ -29,7 +29,6 @@
             <div class="col-12 pa0">
               <button
                 class="btn btn-primary col-12"
-                type="submit"
                 v-on:click="login"
               >
                 Iniciar sesión
@@ -43,6 +42,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 let storeModule = "session";
 
 export default {
@@ -60,10 +60,10 @@ export default {
           email: this.email,
           password: this.password
         })
-        .then(() => {
-          this.$router.push("/home");
-        });
     }
+  },
+  computed: {
+    ...mapGetters(storeModule, ["getLoggedIn"])
   }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <d-container fluid>
     <div class="row">
-      <div class="offset-4 col-4">
+      <div class="col-12 offset-md-4 col-md-4">
         <div class="card">
           <div class="card-header border-bottom">
             <h1 class="mb0 mt0">Registrarme</h1>
@@ -46,7 +46,7 @@
               />
             </div>
             <div class="col-12 pa0">
-              <button class="btn btn-primary col-12" v-on:click="register">
+              <button class="btn btn-primary col-12" @:click.native="register">
                 Registrarme
               </button>
             </div>
@@ -79,9 +79,6 @@ export default {
           password: this.password,
           password_confirmation: this.password_confirmation
         })
-        .then(() => {
-          this.$router.push("/");
-        });
     }
   }
 };

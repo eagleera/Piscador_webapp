@@ -58,14 +58,14 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   store.dispatch("session/fetchAccessToken");
-  if (to.fullPath === "/home") {
+  if (to.fullPath === "/assistance") {
     if (!store.state.session.accessToken) {
       next("/");
     }
   }
   if (to.fullPath === "/") {
     if (store.state.session.accessToken) {
-      next("/home");
+      next("/assistance");
     }
   }
   next();

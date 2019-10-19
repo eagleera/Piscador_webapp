@@ -19,7 +19,7 @@
       </d-input-group>
     </div>
     <div class="row mt4">
-      <div class="col-8 offset-2">
+      <div class="col-12 col-sm-8 offset-sm-2">
         <div class="card card-small mb-4">
           <div class="card-header border-bottom">
             <h6 class="m-0">Lista de empleados</h6>
