@@ -15,10 +15,14 @@ const mutations = {
   }
 };
 const actions = {
-  get({ commit }) {
+  get({ commit }, data) {
     workersApi.get(
       result => {
-        console.log(result.data);
+        if (data) {
+          result.data.forEach(result => {
+            result.attendance = true;
+          });
+        }
         commit("INIT_WORKERS", result.data);
       },
       error => {
@@ -29,7 +33,7 @@ const actions = {
   post({ commit }, data) {
     workersApi.post(
       data,
-      result => {
+      () => {
         commit("ADD_WORKER", data);
       },
       error => {

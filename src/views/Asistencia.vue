@@ -6,12 +6,17 @@
         size="sm"
         class="date-range justify-content-left w-auto-ns inline-flex ml4"
       >
-        <d-datepicker placeholder="Start Date" typeable small />
+        <d-datepicker
+          placeholder="Start Date"
+          v-model="date"
+          @input="obtainAttendance"
+          typeable
+          small
+        />
         <d-input-group-text slot="append">
           <font-awesome-icon icon="search" />
         </d-input-group-text>
       </d-input-group>
-      <button class="btn btn-primary float-right mt4">Guardar</button>
     </div>
     <div class="row mt4">
       <div class="col-8 offset-2">
@@ -20,7 +25,7 @@
             <h6 class="m-0">Lista de empleados</h6>
           </div>
           <div class="card-body p-0 pb-3 text-center ">
-            <table class="table mb-0">
+            <table class="table mb-0" v-if="getAttendance.length == 0">
               <thead class="bg-light">
                 <tr>
                   <th scope="col" class="border-0" width="100">#</th>
@@ -29,32 +34,39 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Ali</td>
+                <tr v-for="(worker, index) in getWorkers" :key="worker.id">
+                  <td>{{ index }}</td>
+                  <td>{{ worker.nombre }}</td>
                   <td>
-                    <d-checkbox toggle class="custom-toggle-sm" checked/>
+                    <d-checkbox
+                      toggle
+                      class="custom-toggle-sm"
+                      checked
+                      v-model="worker.attendance"
+                    />
                   </td>
                 </tr>
+              </tbody>
+            </table>
+            <table class="table mb-0" v-else>
+              <thead class="bg-light">
                 <tr>
-                  <td>2</td>
-                  <td>Clark</td>
-                  <td>
-                    <d-checkbox toggle class="custom-toggle-sm" />
-                  </td>
+                  <th scope="col" class="border-0" width="100">#</th>
+                  <th scope="col" class="border-0">Nombre</th>
+                  <th scope="col" class="border-0 tl" width="150">Estado</th>
                 </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Jerry</td>
+              </thead>
+              <tbody>
+                <tr v-for="(worker, index) in getAttendance" :key="worker.id">
+                  <td>{{ index }}</td>
+                  <td>{{ worker.worker.nombre }}</td>
                   <td>
-                    <d-checkbox toggle class="custom-toggle-sm" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Colt</td>
-                  <td>
-                    <d-checkbox toggle class="custom-toggle-sm" />
+                    <d-checkbox
+                      toggle
+                      class="custom-toggle-sm"
+                      checked
+                      v-model="worker.status"
+                    />
                   </td>
                 </tr>
               </tbody>
@@ -63,6 +75,56 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-primary float-right mr3">Guardar</button>
+    <button
+      class="btn btn-primary float-right mr3"
+      @click="addAttendance"
+      v-if="getAttendance.length == 0"
+    >
+      Guardar
+    </button>
   </d-container>
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+import moment from "moment";
+let storeModuleWorkers = "workers";
+let storeModuleAttendance = "attendance";
+moment.locale("es");
+
+export default {
+  name: "Attendance",
+  data() {
+    return {
+      toggleWorker: false,
+      nombre: "",
+      rol_id: 0,
+      date: new Date(Date.now()).toLocaleString().slice(0, 10)
+    };
+  },
+  methods: {
+    obtainWorkers() {
+      this.$store.dispatch(`${storeModuleWorkers}/get`, true);
+    },
+    addAttendance() {
+      const data = {
+        date: this.date,
+        workers: this.getWorkers
+      };
+      this.$store.dispatch(`${storeModuleAttendance}/post`, data);
+    },
+    obtainAttendance() {
+      let date = moment(this.date).format("l");
+      this.$store.dispatch(`${storeModuleAttendance}/get`, date);
+    }
+  },
+  computed: {
+    ...mapGetters(storeModuleWorkers, ["getWorkers"]),
+    ...mapGetters(storeModuleAttendance, ["getAttendance"])
+  },
+  mounted() {
+    this.obtainWorkers();
+    this.obtainAttendance();
+  }
+};
+</script>

@@ -55,12 +55,14 @@ export default {
   },
   methods: {
     login() {
-      this.$store.dispatch(`${storeModule}/tryLogin`, {
-        email: this.email,
-        password: this.password
-      }).then(()=>{
-        this.$router.push('/home')
-      });
+      this.$store
+        .dispatch(`${storeModule}/tryLogin`, {
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          this.$router.push("/home");
+        });
     }
   }
 };

@@ -86,7 +86,8 @@
                       <select
                         id="rol"
                         class="form-control custom-select"
-                        v-model="worker.rol_id">
+                        v-model="worker.rol_id"
+                      >
                         <option disabled selected>Elegir...</option>
                         <option
                           v-for="rol in getRoles"

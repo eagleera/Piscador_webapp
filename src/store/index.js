@@ -9,6 +9,7 @@ import dashboard from "@/store/modules/dashboard.store";
 import session from "@/store/modules/session.store";
 import roles from "@/store/modules/roles.store";
 import workers from "@/store/modules/workers.store";
+import attendance from "@/store/modules/attendance.store";
 
 Vue.use(Vuex);
 
@@ -17,7 +18,8 @@ export default new Vuex.Store({
     dashboard,
     session,
     roles,
-    workers
+    workers,
+    attendance
   },
   store: store,
   mutations: mutations,
