@@ -32,7 +32,7 @@
             <h3>Total billetes</h3>
           </div>
           <div class="row">
-            <div class="col-4 tc" v-for="(moneda, index) in calculateTotal" :key="moneda.id">
+            <div class="col-6 col-md-4 tc" v-for="(moneda, index) in calculateTotal" :key="moneda.id">
               <div class="card pa3 ma3">
                 <h4>
                   ${{ nombreMoneda(index) }}

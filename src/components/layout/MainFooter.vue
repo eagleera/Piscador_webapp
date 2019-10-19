@@ -2,11 +2,11 @@
   <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
     <div :class="[contained ? 'container' : 'container-fluid']">
       <div class="row">
-        <ul class="nav">
+        <!-- <ul class="nav">
           <li v-for="(item, idx) in menuItems" :key="idx" class="nav-item">
             <d-link class="nav-link" :to="item.to">{{ item.title }}</d-link>
           </li>
-        </ul>
+        </ul> -->
         <span class="copyright ml-auto my-auto mr-2">{{ copyright }}</span>
       </div>
     </div>
@@ -54,7 +54,7 @@ export default {
      */
     copyright: {
       type: String,
-      default: "Copyright © 2018 DesignRevision"
+      default: "Copyright © 2018 Daniel Aguilera"
     },
     /**
      * Whether the footer should be wrapped in a container, or not.

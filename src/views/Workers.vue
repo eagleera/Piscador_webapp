@@ -10,7 +10,7 @@
       </h1>
     </div>
     <div class="row">
-      <div class="col-4 mb4" v-if="toggleWorker">
+      <div class="col-12 col-md-4 mb4" v-if="toggleWorker">
         <div class="card h-100">
           <div class="border-bottom card-header">
             <h6 class="mb0">Nuevo trabajador</h6>
@@ -58,7 +58,7 @@
         </div>
       </div>
       <div
-        class="col-4 mb4"
+        class="col-6 col-md-4 mb4"
         v-for="worker in getWorkers"
         v-bind:key="worker.id"
       >

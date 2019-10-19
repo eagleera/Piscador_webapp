@@ -10,7 +10,7 @@
       </h1>
     </div>
     <div class="row">
-      <div class="col-4 mb4" v-if="toggleRol">
+      <div class="col-12 col-md-4 mb4" v-if="toggleRol">
         <div class="card h-100">
           <div class="border-bottom card-header">
             <label for="price">Nombre</label>
@@ -65,7 +65,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4 mb4" v-for="rol in getRoles" v-bind:key="rol.id">
+      <div class="col-12 col-md-4 mb4" v-for="rol in getRoles" v-bind:key="rol.id">
         <div class="card h-100">
           <div class="border-bottom card-header">
             <h6 class="mb0">{{ rol.nombre }}</h6>
