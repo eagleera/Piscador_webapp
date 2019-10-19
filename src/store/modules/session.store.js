@@ -34,7 +34,7 @@ const actions = {
         }
       },
       error => {
-        console.log(error);
+        return error;
       }
     );
   },
@@ -45,7 +45,7 @@ const actions = {
         commit("REGISTER_USER", result.data.user);
       },
       error => {
-        console.log(error);
+        return error;
       }
     );
   },

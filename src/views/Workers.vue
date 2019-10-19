@@ -138,7 +138,6 @@ export default {
         nombre: this.nombre,
         rol_id: this.rol_id
       };
-      console.log("suhhh");
       this.$store.dispatch(`${storeModuleWorkers}/post`, data).then(() => {
         this.toggleWorker = false;
         this.nombre = "";

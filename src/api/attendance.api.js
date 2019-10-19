@@ -3,9 +3,19 @@ import axios from "axios";
 
 export default {
   get(data, onSuccess, onError) {
-    console.log(data);
     return axios
       .get(`${config.host}/attendance/`, { params: { date: data } })
+      .then(onSuccess)
+      .catch(onError);
+  },
+  getPayday(data, onSuccess, onError) {
+    return axios
+      .get(`${config.host}/attendance/payday`, {
+        params: {
+          init_date: data.init_date,
+          end_date: data.end_date
+        }
+      })
       .then(onSuccess)
       .catch(onError);
   },

@@ -23,7 +23,6 @@ const actions = {
   get({ commit }) {
     rolesApi.get(
       result => {
-        console.log(result.data);
         commit("INIT_ROLES", result.data);
       },
       error => {
@@ -34,7 +33,6 @@ const actions = {
   getTypes({ commit }) {
     rolesApi.getTypes(
       result => {
-        console.log(result.data);
         commit("INIT_TYPES", result.data);
       },
       error => {
@@ -46,7 +44,6 @@ const actions = {
     rolesApi.post(
       data,
       result => {
-        console.log(result.data);
         commit("ADD_ROLE", data);
       },
       error => {

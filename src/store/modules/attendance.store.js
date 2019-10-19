@@ -1,14 +1,19 @@
 import attendanceApi from "@/api/attendance.api";
 
 const state = {
-  attendance: []
+  attendance: [],
+  payday: []
 };
 const getters = {
-  getAttendance: state => state.attendance
+  getAttendance: state => state.attendance,
+  getPayday: state => state.payday
 };
 const mutations = {
   SET_ATTENDANCE(state, attendance) {
     state.attendance = attendance;
+  },
+  SET_PAYDAY(state, attendance) {
+    state.payday = attendance;
   }
 };
 const actions = {
@@ -23,12 +28,49 @@ const actions = {
       }
     );
   },
+  getPayday({ commit }, data) {
+    attendanceApi.getPayday(
+      data,
+      result => {
+        var attendance = [];
+        let workers = [];
+        result.data.forEach(att => {
+          if (!workers.includes(att.worker_id)) {
+            var info = {
+              worker_id: att.worker_id,
+              worker: att.worker,
+              payday: [
+                {
+                  status: att.status,
+                  date: att.attendance_day
+                }
+              ]
+            };
+            attendance.push(info);
+            workers.push(att.worker_id);
+          } else {
+            attendance.forEach(attend => {
+              if (attend.worker_id == att.worker_id) {
+                attend.payday.push({
+                  status: att.status,
+                  date: att.attendance_day
+                });
+              }
+            });
+          }
+        });
+        commit("SET_PAYDAY", attendance);
+      },
+      error => {
+        return error;
+      }
+    );
+  },
   post({ commit }, data) {
     attendanceApi.post(
       data,
       result => {
-        console.log(result.data);
-        // commit("SET_ATTENDANCE", data);
+        commit("SET_ATTENDANCE", data);
       },
       error => {
         return error;

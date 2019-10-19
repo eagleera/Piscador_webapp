@@ -6,8 +6,8 @@
         size="sm"
         class="date-range justify-content-left w-auto-ns inline-flex ml4"
       >
-        <d-datepicker placeholder="Fecha inicio" typeable />
-        <d-datepicker placeholder="Fecha fin" typeable />
+        <d-datepicker placeholder="Fecha inicio" v-model="init_date" typeable />
+        <d-datepicker placeholder="Fecha fin" v-model="end_date" typeable />
         <d-input-group-text slot="append">
           <font-awesome-icon icon="search" />
         </d-input-group-text>
@@ -26,13 +26,9 @@
                 <tr>
                   <th scope="col" class="border-0" width="100">#</th>
                   <th scope="col" class="border-0">Nombre</th>
-                  <th scope="col" class="border-0 tl">Lunes</th>
-                  <th scope="col" class="border-0 tl">Martes</th>
-                  <th scope="col" class="border-0 tl">Miercoles</th>
-                  <th scope="col" class="border-0 tl">Jueves</th>
-                  <th scope="col" class="border-0 tl">Viernes</th>
-                  <th scope="col" class="border-0 tl">Sabado</th>
-                  <th scope="col" class="border-0 tl">Domingo</th>
+                  <th scope="col" class="border-0 tl" v-for="date in dates" :key="date.id">
+                    {{ date.letra }}
+                  </th>
                   <th scope="col" class="border-0 tl">$500</th>
                   <th scope="col" class="border-0 tl">$200</th>
                   <th scope="col" class="border-0 tl">$100</th>
@@ -45,45 +41,16 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Ali</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Ali</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
+                <tr v-for="(attendance, index) in getPayday" :key="attendance.id">
+                  <td>{{ index + 1 }}</td>
+                  <td>{{ attendance.worker.nombre }}</td>
+                  <td v-for="date in dates" :key="date.id">
+                    <div v-for="payday in attendance.payday" :key="payday.id">
+                      <div v-if="payday.date == date.dia">
+                        <p>{{ payday.status }}</p>
+                      </div>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -93,3 +60,53 @@
     </div>
   </d-container>
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+import moment from "moment";
+let storeModule = "attendance";
+moment.locale("es");
+
+export default {
+  name: "Payday",
+  data() {
+    return {
+      init_date: new Date(Date.now()).toLocaleString().slice(0, 10),
+      end_date: new Date(Date.now()).toLocaleString().slice(0, 10),
+      dates: []
+    };
+  },
+  methods: {
+    obtainAttendance(first) {
+      if (first) {
+        this.init_date = moment(this.init_date).startOf("week").format("l");
+      }
+      const data = {
+        init_date: this.init_date,
+        end_date: moment(this.end_date).format("l")
+      };
+      this.init_date = this.init_date.split(/\//).reverse().join('/');
+      this.enumerateDaysBetweenDates(this.init_date, this.end_date);
+      this.$store.dispatch(`${storeModule}/getPayday`, data);
+    },
+    enumerateDaysBetweenDates(startDate, endDate) {
+      var dateminus = moment(startDate).startOf('day').subtract(1, 'days');
+      var lastDate = moment(endDate).startOf('day');
+      while(dateminus.add(1, 'days').diff(lastDate) <= 0) {
+        this.dates.push(
+          {
+            letra: dateminus.clone().format("dddd"),
+            dia: dateminus.clone().format("YYYY-MM-DD")
+          }
+        );
+      }
+    }
+  },
+  computed: {
+    ...mapGetters(storeModule, ["getAttendance", "getPayday"])
+  },
+  mounted() {
+    this.obtainAttendance(true);
+  }
+};
+</script>

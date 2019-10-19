@@ -7,7 +7,7 @@
         class="date-range justify-content-left w-auto-ns inline-flex ml4"
       >
         <d-datepicker
-          placeholder="Start Date"
+          placeholder="Fecha"
           v-model="date"
           @input="obtainAttendance"
           typeable
@@ -35,7 +35,7 @@
               </thead>
               <tbody>
                 <tr v-for="(worker, index) in getWorkers" :key="worker.id">
-                  <td>{{ index }}</td>
+                  <td>{{ index + 1 }}</td>
                   <td>{{ worker.nombre }}</td>
                   <td>
                     <d-checkbox
