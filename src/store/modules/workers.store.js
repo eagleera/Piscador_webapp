@@ -30,7 +30,6 @@ const actions = {
     workersApi.post(
       data,
       result => {
-        console.log(result.data);
         commit("ADD_WORKER", data);
       },
       error => {

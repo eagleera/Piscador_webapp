@@ -11,7 +11,7 @@
     </div>
     <div class="row">
       <div class="col-4 mb4" v-if="toggleWorker">
-        <div class="card">
+        <div class="card h-100">
           <div class="border-bottom card-header">
             <h6 class="mb0">Nuevo trabajador</h6>
           </div>
@@ -62,9 +62,9 @@
         v-for="worker in getWorkers"
         v-bind:key="worker.id"
       >
-        <div class="card">
+        <div class="card h-100">
           <div class="border-bottom card-header">
-            <h6 class="mb0">{{ worker }}</h6>
+            <h6 class="mb0">Empleado</h6>
           </div>
           <div class="list-group list-group-flush">
             <div class="p3 list-group-item">
@@ -74,6 +74,7 @@
                     <div class="form-group col-12">
                       <label for="name">Nombre</label>
                       <input
+                        :value="worker.nombre"
                         id="name"
                         type="text"
                         placeholder="Daniel"
@@ -82,9 +83,18 @@
                     </div>
                     <div class="form-group col-12">
                       <label for="rol">Rol</label>
-                      <select id="rol" class="form-control custom-select">
+                      <select
+                        id="rol"
+                        class="form-control custom-select"
+                        v-model="worker.rol_id">
                         <option disabled selected>Elegir...</option>
-                        <option>...</option>
+                        <option
+                          v-for="rol in getRoles"
+                          v-bind:key="rol.id"
+                          :value="rol.id"
+                        >
+                          {{ rol.nombre }}
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -129,6 +139,7 @@ export default {
       };
       console.log("suhhh");
       this.$store.dispatch(`${storeModuleWorkers}/post`, data).then(() => {
+        this.toggleWorker = false;
         this.nombre = "";
         this.rol_id = null;
       });
