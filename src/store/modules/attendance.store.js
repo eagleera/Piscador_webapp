@@ -39,6 +39,8 @@ const actions = {
             var info = {
               worker_id: att.worker_id,
               worker: att.worker,
+              role: att.worker.role,
+              total: att.status ? att.worker.role.cantidad : 0,
               payday: [
                 {
                   status: att.status,
@@ -51,6 +53,9 @@ const actions = {
           } else {
             attendance.forEach(attend => {
               if (attend.worker_id == att.worker_id) {
+                if (att.status) {
+                  attend.total += att.worker.role.cantidad;
+                }
                 attend.payday.push({
                   status: att.status,
                   date: att.attendance_day
@@ -69,7 +74,7 @@ const actions = {
   post({ commit }, data) {
     attendanceApi.post(
       data,
-      result => {
+      () => {
         commit("SET_ATTENDANCE", data);
       },
       error => {
