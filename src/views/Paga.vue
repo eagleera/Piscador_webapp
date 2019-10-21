@@ -158,8 +158,8 @@ export default {
       }
     },
     calculateBills(total){
-      const monedas = [500, 200, 100, 50, 20, 10, 5, 2, 1];
-      var cambio = [0,0,0,0,0,0,0,0,0];
+      const monedas = [500, 200, 100, 50, 20, 10, 5];
+      var cambio = [0,0,0,0,0,0,0];
       for (var i=0; i<monedas.length; i++) {
         // Si el importe actual, es superior a la moneda
         if(total>=monedas[i])
@@ -173,7 +173,7 @@ export default {
       return cambio;
     },
     nombreMoneda(index){
-      const monedas = [500, 200, 100, 50, 20, 10, 5, 2, 1];
+      const monedas = [500, 200, 100, 50, 20, 10, 5];
       return monedas[index];
     }
   },
