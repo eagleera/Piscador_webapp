@@ -6,21 +6,10 @@
         size="sm"
         class="date-range justify-content-left w-auto-ns inline-flex ml4"
       >
-        <d-datepicker
-          placeholder="Fecha inicio"
-          v-model="init_date"
-          typeable
-        />
-        <d-datepicker
-          placeholder="Fecha fin"
-          v-model="end_date"
-          typeable
-        />
-        <d-input-group-text
-          slot="append"
-          class="btn-search"
-        >
-          <font-awesome-icon icon="search" @click="obtainAttendance(false)"/>
+        <d-datepicker placeholder="Fecha inicio" v-model="init_date" typeable />
+        <d-datepicker placeholder="Fecha fin" v-model="end_date" typeable />
+        <d-input-group-text slot="append" class="btn-search">
+          <font-awesome-icon icon="search" @click="obtainAttendance(false)" />
           <!-- <button class="btn btn-accent" >Buscar</button> -->
         </d-input-group-text>
       </d-input-group>
@@ -29,22 +18,24 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header border-bottom">
-            <h3>Total {{ calculateTotalReal | currency }} </h3>
+            <h3>Total {{ calculateTotalReal | currency }}</h3>
           </div>
           <div class="row">
-            <div class="col-6 col-md-4 tc" v-for="(moneda, index) in calculateTotal" :key="moneda.id">
-              <div class="card pa3 ma3">
-                <img v-if="index == 0" src="images/bill500.jpg" alt="">
-                <img v-if="index == 1" src="images/bill200.jpg" alt="">
-                <img v-if="index == 2" src="images/bill100.jpeg" alt="">
-                <img v-if="index == 3" src="images/bill50.jpg" alt="">
-                <img v-if="index == 4" src="images/bill20.jpeg" alt="">
-                <img v-if="index == 5" src="images/bill10.jpg" alt="">
-                <img v-if="index == 6" src="images/bill5.jpg" alt="">
-                <h4>
-                  ${{ nombreMoneda(index) }}
-                </h4>
-                <h5 class="b">{{moneda}}</h5>
+            <div
+              class="col-6 col-md-4 tc"
+              v-for="(moneda, index) in calculateTotal"
+              :key="moneda.id"
+            >
+              <div class="card pa3 ma3 img-max-height">
+                <img v-if="index == 0" src="images/bill500.jpg" alt="" />
+                <img v-if="index == 1" src="images/bill200.jpg" alt="" />
+                <img v-if="index == 2" src="images/bill100.jpeg" alt="" />
+                <img v-if="index == 3" src="images/bill50.jpg" alt="" />
+                <img v-if="index == 4" src="images/bill20.jpeg" alt="" />
+                <img v-if="index == 5" src="images/bill10.jpg" alt="" />
+                <img v-if="index == 6" src="images/bill5.jpg" alt="" />
+                <h4>${{ nombreMoneda(index) }}</h4>
+                <h5 class="b">{{ moneda }}</h5>
               </div>
             </div>
           </div>
@@ -90,7 +81,7 @@
                   <td>{{ attendance.worker.nombre }}</td>
                   <td v-for="date in dates" :key="date.id" class="relative">
                     <div v-for="payday in attendance.payday" :key="payday.id">
-                      <div 
+                      <div
                         v-if="payday.date == date.dia"
                         class="status-tbl"
                         :class="[payday.status ? 'bg-success' : 'bg-danger']"
@@ -99,8 +90,13 @@
                       </div>
                     </div>
                   </td>
-                  <td class="b tl">{{ round5(attendance.total.toFixed(2)) | currency }}</td>
-                  <td v-for="moneda in calculateBills(attendance.total)" :key="moneda.id">
+                  <td class="b tl">
+                    {{ round5(attendance.total.toFixed(2)) | currency }}
+                  </td>
+                  <td
+                    v-for="moneda in calculateBills(attendance.total)"
+                    :key="moneda.id"
+                  >
                     {{ moneda }}
                   </td>
                 </tr>
@@ -134,7 +130,7 @@ export default {
         this.init_date = moment(this.init_date)
           .startOf("week")
           .format("l");
-      }else{
+      } else {
         this.init_date = moment(this.init_date).format("l");
       }
       console.log(this.init_date);
@@ -162,30 +158,29 @@ export default {
         });
       }
     },
-    calculateBills(total){
+    calculateBills(total) {
       const monedas = [500, 200, 100, 50, 20, 10, 5];
-      var cambio = [0,0,0,0,0,0,0];
-      for (var i=0; i<monedas.length; i++) {
+      var cambio = [0, 0, 0, 0, 0, 0, 0];
+      for (var i = 0; i < monedas.length; i++) {
         // Si el importe actual, es superior a la moneda
-        if(total>=monedas[i])
-        {
+        if (total >= monedas[i]) {
           // obtenemos cantidad de monedas
-          cambio[i]=parseInt(total/monedas[i]);
+          cambio[i] = parseInt(total / monedas[i]);
           // actualizamos el valor del importe que nos queda por didivir
-          total=(total-(cambio[i]*monedas[i])).toFixed(2);
-        }else{
+          total = (total - cambio[i] * monedas[i]).toFixed(2);
+        } else {
           total = this.round5(total);
-          cambio[i]=parseInt(total/monedas[i]);
+          cambio[i] = parseInt(total / monedas[i]);
         }
       }
       return cambio;
     },
-    nombreMoneda(index){
+    nombreMoneda(index) {
       const monedas = [500, 200, 100, 50, 20, 10, 5];
       return monedas[index];
     },
     round5(x) {
-      return Math.round(x/5)*5;
+      return Math.round(x / 5) * 5;
     }
   },
   computed: {
@@ -194,8 +189,11 @@ export default {
       var total_cambio = [];
       this.getPayday.forEach(pay => {
         total_cambio.push(this.calculateBills(pay.total));
-      })
-      let result = total_cambio.reduce((r, a) => a.map((b, i) => (r[i] || 0) + b), []);
+      });
+      let result = total_cambio.reduce(
+        (r, a) => a.map((b, i) => (r[i] || 0) + b),
+        []
+      );
       return result;
     },
     calculateTotalReal() {
@@ -204,11 +202,14 @@ export default {
       const monedas = [500, 200, 100, 50, 20, 10, 5];
       this.getPayday.forEach(pay => {
         total_cambio.push(this.calculateBills(pay.total));
-      })
-      let result = total_cambio.reduce((r, a) => a.map((b, i) => (r[i] || 0) + b), []);
+      });
+      let result = total_cambio.reduce(
+        (r, a) => a.map((b, i) => (r[i] || 0) + b),
+        []
+      );
       console.log(result);
       result.forEach((cantidad, i) => {
-        total += (cantidad * monedas[i]);
+        total += cantidad * monedas[i];
       });
       return total;
     }
@@ -220,30 +221,38 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.status-tbl{
+.status-tbl {
   width: 100%;
   height: 100%;
   color: white;
   position: absolute;
   top: 0;
   left: 0;
-  p{
+  p {
     margin-bottom: 0;
     padding-top: 0.8rem;
   }
 }
-.btn-search{
+.btn-search {
   transition: all 0.3s ease-in-out;
   cursor: pointer;
-  &:hover{
+  &:hover {
     background-color: #3c5170;
     color: white;
   }
-  >svg{
+  > svg {
     width: 40px;
     height: 29px;
     padding: 7px;
   }
 }
-
+.img-max-height {
+  > img {
+    max-height: 15vh;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    margin-bottom: 10px;
+  }
+}
 </style>
