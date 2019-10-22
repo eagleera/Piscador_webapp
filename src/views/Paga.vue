@@ -29,11 +29,18 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header border-bottom">
-            <h3>Total billetes</h3>
+            <h3>Total {{ calculateTotalReal | currency }} </h3>
           </div>
           <div class="row">
             <div class="col-6 col-md-4 tc" v-for="(moneda, index) in calculateTotal" :key="moneda.id">
               <div class="card pa3 ma3">
+                <img v-if="index == 0" src="images/bill500.jpg" alt="">
+                <img v-if="index == 1" src="images/bill200.jpg" alt="">
+                <img v-if="index == 2" src="images/bill100.jpeg" alt="">
+                <img v-if="index == 3" src="images/bill50.jpg" alt="">
+                <img v-if="index == 4" src="images/bill20.jpeg" alt="">
+                <img v-if="index == 5" src="images/bill10.jpg" alt="">
+                <img v-if="index == 6" src="images/bill5.jpg" alt="">
                 <h4>
                   ${{ nombreMoneda(index) }}
                 </h4>
@@ -72,8 +79,6 @@
                   <th scope="col" class="border-0 tl">$20</th>
                   <th scope="col" class="border-0 tl">$10</th>
                   <th scope="col" class="border-0 tl">$5</th>
-                  <th scope="col" class="border-0 tl">$2</th>
-                  <th scope="col" class="border-0 tl">$1</th>
                 </tr>
               </thead>
               <tbody>
@@ -94,7 +99,7 @@
                       </div>
                     </div>
                   </td>
-                  <td class="b tl">${{ attendance.total }}</td>
+                  <td class="b tl">{{ round5(attendance.total.toFixed(2)) | currency }}</td>
                   <td v-for="moneda in calculateBills(attendance.total)" :key="moneda.id">
                     {{ moneda }}
                   </td>
@@ -168,6 +173,9 @@ export default {
           cambio[i]=parseInt(total/monedas[i]);
           // actualizamos el valor del importe que nos queda por didivir
           total=(total-(cambio[i]*monedas[i])).toFixed(2);
+        }else{
+          total = this.round5(total);
+          cambio[i]=parseInt(total/monedas[i]);
         }
       }
       return cambio;
@@ -175,6 +183,9 @@ export default {
     nombreMoneda(index){
       const monedas = [500, 200, 100, 50, 20, 10, 5];
       return monedas[index];
+    },
+    round5(x) {
+      return Math.round(x/5)*5;
     }
   },
   computed: {
@@ -187,6 +198,20 @@ export default {
       let result = total_cambio.reduce((r, a) => a.map((b, i) => (r[i] || 0) + b), []);
       return result;
     },
+    calculateTotalReal() {
+      var total_cambio = [];
+      var total = 0;
+      const monedas = [500, 200, 100, 50, 20, 10, 5];
+      this.getPayday.forEach(pay => {
+        total_cambio.push(this.calculateBills(pay.total));
+      })
+      let result = total_cambio.reduce((r, a) => a.map((b, i) => (r[i] || 0) + b), []);
+      console.log(result);
+      result.forEach((cantidad, i) => {
+        total += (cantidad * monedas[i]);
+      });
+      return total;
+    }
   },
   mounted() {
     this.obtainAttendance(true);

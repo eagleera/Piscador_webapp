@@ -18,6 +18,7 @@ import {
   faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import Vue2Filters from "vue2-filters";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "@/scss/shards-dashboards.scss";
@@ -40,6 +41,7 @@ library.add(
 Vue.config.productionTip = false;
 Vue.prototype.$eventHub = new Vue();
 Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.use(Vue2Filters);
 ShardsVue.install(Vue);
 
 new Vue({
