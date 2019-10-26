@@ -133,7 +133,6 @@ export default {
       } else {
         this.init_date = moment(this.init_date).format("l");
       }
-      console.log(this.init_date);
       const data = {
         init_date: this.init_date,
         end_date: moment(this.end_date).format("l")
@@ -187,6 +186,7 @@ export default {
     ...mapGetters(storeModule, ["getAttendance", "getPayday"]),
     calculateTotal() {
       var total_cambio = [];
+      console.log(this.getPayday);
       this.getPayday.forEach(pay => {
         total_cambio.push(this.calculateBills(pay.total));
       });
@@ -200,6 +200,7 @@ export default {
       var total_cambio = [];
       var total = 0;
       const monedas = [500, 200, 100, 50, 20, 10, 5];
+      console.log(this.getPayday);
       this.getPayday.forEach(pay => {
         total_cambio.push(this.calculateBills(pay.total));
       });
