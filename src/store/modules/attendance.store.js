@@ -40,7 +40,7 @@ const actions = {
               worker_id: att.worker_id,
               worker: att.worker,
               role: att.worker.role,
-              total: att.status ? att.worker.role.cantidad : 0,
+              total: att.status ? parseFloat(att.worker.role.cantidad) : 0,
               payday: [
                 {
                   status: att.status,
@@ -54,7 +54,7 @@ const actions = {
             attendance.forEach(attend => {
               if (attend.worker_id == att.worker_id) {
                 if (att.status) {
-                  attend.total += parseFloat(att.worker.role.cantidad);
+                  attend.total = parseFloat(att.worker.role.cantidad) + parseFloat(attend.total);
                 }
                 attend.payday.push({
                   status: att.status,
