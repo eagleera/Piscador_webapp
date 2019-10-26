@@ -194,6 +194,7 @@ export default {
         (r, a) => a.map((b, i) => (r[i] || 0) + b),
         []
       );
+      console.log(result);
       return result;
     },
     calculateTotalReal() {
@@ -203,7 +204,9 @@ export default {
       console.log(this.getPayday);
       this.getPayday.forEach(pay => {
         total_cambio.push(this.calculateBills(pay.total));
+        console.log(pay);
       });
+      console.log(total_cambio);
       let result = total_cambio.reduce(
         (r, a) => a.map((b, i) => (r[i] || 0) + b),
         []
