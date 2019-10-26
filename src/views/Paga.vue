@@ -158,6 +158,7 @@ export default {
       }
     },
     calculateBills(total) {
+      console.log(total);
       const monedas = [500, 200, 100, 50, 20, 10, 5];
       var cambio = [0, 0, 0, 0, 0, 0, 0];
       for (var i = 0; i < monedas.length; i++) {
@@ -172,6 +173,7 @@ export default {
           cambio[i] = parseInt(total / monedas[i]);
         }
       }
+      console.log(cambio);
       return cambio;
     },
     nombreMoneda(index) {
@@ -186,7 +188,6 @@ export default {
     ...mapGetters(storeModule, ["getAttendance", "getPayday"]),
     calculateTotal() {
       var total_cambio = [];
-      console.log(this.getPayday);
       this.getPayday.forEach(pay => {
         total_cambio.push(this.calculateBills(pay.total));
       });
@@ -194,24 +195,20 @@ export default {
         (r, a) => a.map((b, i) => (r[i] || 0) + b),
         []
       );
-      console.log(result);
       return result;
     },
     calculateTotalReal() {
       var total_cambio = [];
       var total = 0;
       const monedas = [500, 200, 100, 50, 20, 10, 5];
-      console.log(this.getPayday);
       this.getPayday.forEach(pay => {
         total_cambio.push(this.calculateBills(pay.total));
-        console.log(pay);
       });
       console.log(total_cambio);
       let result = total_cambio.reduce(
         (r, a) => a.map((b, i) => (r[i] || 0) + b),
         []
       );
-      console.log(result);
       result.forEach((cantidad, i) => {
         total += cantidad * monedas[i];
       });
