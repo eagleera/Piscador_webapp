@@ -46,7 +46,7 @@
               />
             </div>
             <div class="col-12 pa0">
-              <button class="btn btn-primary col-12" @:click.native="register">
+              <button class="btn btn-primary col-12" @click="register">
                 Registrarme
               </button>
             </div>
