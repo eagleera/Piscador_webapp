@@ -114,7 +114,8 @@ export default {
       this.$store.dispatch(`${storeModuleAttendance}/post`, data);
     },
     obtainAttendance() {
-      let date = moment(this.date).format("l");
+      let date = moment(this.date).format("YYYY-MM-DD");
+      console.log(date);
       this.$store.dispatch(`${storeModuleAttendance}/get`, date);
     }
   },

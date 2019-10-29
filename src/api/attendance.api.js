@@ -4,7 +4,7 @@ import axios from "axios";
 export default {
   get(data, onSuccess, onError) {
     return axios
-      .get(`${config.host}/attendance/`, { params: { date: data } })
+      .get(`${config.host}/attendance/${data}`)
       .then(onSuccess)
       .catch(onError);
   },
