@@ -2,17 +2,8 @@
   <d-container fluid class="main-content-container px-4">
     <div class="pa3">
       <h1 class="dib">Asistencia</h1>
-      <d-input-group
-        size="sm"
-        class="date-range justify-content-left w-auto-ns inline-flex ml4"
-      >
-        <d-datepicker
-          placeholder="Fecha"
-          v-model="date"
-          @input="obtainAttendance"
-          typeable
-          small
-        />
+      <d-input-group size="sm" class="date-range justify-content-left w-auto-ns inline-flex ml4">
+        <d-datepicker placeholder="Fecha" v-model="date" @input="obtainAttendance" typeable small />
         <d-input-group-text slot="append">
           <font-awesome-icon icon="search" />
         </d-input-group-text>
@@ -24,7 +15,7 @@
           <div class="card-header border-bottom">
             <h6 class="m-0">Lista de empleados</h6>
           </div>
-          <div class="card-body p-0 pb-3 text-center ">
+          <div class="card-body p-0 pb-3 text-center">
             <table class="table mb-0" v-if="getAttendance.length == 0">
               <thead class="bg-light">
                 <tr>
@@ -61,12 +52,7 @@
                   <td>{{ index }}</td>
                   <td>{{ worker.worker.nombre }}</td>
                   <td>
-                    <d-checkbox
-                      toggle
-                      class="custom-toggle-sm"
-                      checked
-                      v-model="worker.status"
-                    />
+                    <d-checkbox toggle class="custom-toggle-sm" checked v-model="worker.status" />
                   </td>
                 </tr>
               </tbody>
@@ -75,13 +61,13 @@
         </div>
       </div>
     </div>
-    <button
-      class="btn btn-primary float-right mr3"
-      @click="addAttendance"
-      v-if="getAttendance.length == 0"
-    >
-      Guardar
-    </button>
+    <div class="col-12 tr mb4">
+      <button
+        class="btn btn-primary mr3"
+        @click="addAttendance"
+        v-if="getAttendance.length == 0"
+      >Guardar</button>
+    </div>
   </d-container>
 </template>
 
@@ -108,7 +94,7 @@ export default {
     },
     addAttendance() {
       const data = {
-        date: this.date,
+        date: moment(this.date).format("YYYY-MM-DD"),
         workers: this.getWorkers
       };
       this.$store.dispatch(`${storeModuleAttendance}/post`, data);
