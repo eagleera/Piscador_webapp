@@ -86,7 +86,8 @@
                         class="status-tbl"
                         :class="[payday.status ? 'bg-success' : 'bg-danger']"
                       >
-                        <p>{{ payday.status }}</p>
+                      <i v-if="!payday.status" class="fas fa-times-circle"></i>
+                      <i v-else class="fas fa-check-circle"></i>
                       </div>
                     </div>
                   </td>
