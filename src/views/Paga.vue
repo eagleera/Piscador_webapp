@@ -2,10 +2,7 @@
   <d-container fluid class="main-content-container px-4">
     <div class="pa3">
       <h1 class="dib">Día de paga</h1>
-      <d-input-group
-        size="sm"
-        class="date-range justify-content-left w-auto-ns inline-flex ml4"
-      >
+      <d-input-group size="sm" class="date-range justify-content-left w-auto-ns inline-flex ml4">
         <d-datepicker placeholder="Fecha inicio" v-model="init_date" typeable />
         <d-datepicker placeholder="Fecha fin" v-model="end_date" typeable />
         <d-input-group-text slot="append" class="btn-search">
@@ -27,13 +24,13 @@
               :key="moneda.id"
             >
               <div class="card pa3 ma3 img-max-height">
-                <img v-if="index == 0" src="images/bill500.jpg" alt="" />
-                <img v-if="index == 1" src="images/bill200.jpg" alt="" />
-                <img v-if="index == 2" src="images/bill100.jpeg" alt="" />
-                <img v-if="index == 3" src="images/bill50.jpg" alt="" />
-                <img v-if="index == 4" src="images/bill20.jpeg" alt="" />
-                <img v-if="index == 5" src="images/bill10.jpg" alt="" />
-                <img v-if="index == 6" src="images/bill5.jpg" alt="" />
+                <img v-if="index == 0" src="images/bill500.jpg" alt />
+                <img v-if="index == 1" src="images/bill200.jpg" alt />
+                <img v-if="index == 2" src="images/bill100.jpeg" alt />
+                <img v-if="index == 3" src="images/bill50.jpg" alt />
+                <img v-if="index == 4" src="images/bill20.jpeg" alt />
+                <img v-if="index == 5" src="images/bill10.jpg" alt />
+                <img v-if="index == 6" src="images/bill5.jpg" alt />
                 <h4>${{ nombreMoneda(index) }}</h4>
                 <h5 class="b">{{ moneda }}</h5>
               </div>
@@ -48,7 +45,7 @@
           <div class="card-header border-bottom">
             <h6 class="m-0">Desglose</h6>
           </div>
-          <div class="card-body p-0 pb-3 text-center ">
+          <div class="card-body p-0 pb-3 text-center">
             <table class="table mb-0 table-responsive">
               <thead class="bg-light">
                 <tr>
@@ -59,9 +56,7 @@
                     class="border-0 tl"
                     v-for="date in dates"
                     :key="date.id"
-                  >
-                    {{ date.letra }}
-                  </th>
+                  >{{ date.letra }}</th>
                   <th scope="col" class="border-0 tl">Total</th>
                   <th scope="col" class="border-0 tl">$500</th>
                   <th scope="col" class="border-0 tl">$200</th>
@@ -73,10 +68,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  v-for="(attendance, index) in getPayday"
-                  :key="attendance.id"
-                >
+                <tr v-for="(attendance, index) in getPayday" :key="attendance.id">
                   <td>{{ index + 1 }}</td>
                   <td>{{ attendance.worker.nombre }}</td>
                   <td v-for="date in dates" :key="date.id" class="relative">
@@ -86,20 +78,16 @@
                         class="status-tbl"
                         :class="[payday.status ? 'bg-success' : 'bg-danger']"
                       >
-                      <i v-if="!payday.status" class="fas fa-times-circle"></i>
-                      <i v-else class="fas fa-check-circle"></i>
+                        <font-awesome-icon v-if="!payday.status" icon="fa-times-circle" />
+                        <font-awesome-icon v-else icon="fa-check-circle" />
                       </div>
                     </div>
                   </td>
-                  <td class="b tl">
-                    {{ round5(attendance.total.toFixed(2)) | currency }}
-                  </td>
+                  <td class="b tl">{{ round5(attendance.total.toFixed(2)) | currency }}</td>
                   <td
                     v-for="moneda in calculateBills(attendance.total)"
                     :key="moneda.id"
-                  >
-                    {{ moneda }}
-                  </td>
+                  >{{ moneda }}</td>
                 </tr>
               </tbody>
             </table>
