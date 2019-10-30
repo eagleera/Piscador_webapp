@@ -21,6 +21,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Vue2Filters from "vue2-filters";
+import * as VueSpinnersCss from "vue-spinners-css";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "@/scss/shards-dashboards.scss";
@@ -46,6 +47,7 @@ Vue.config.productionTip = false;
 Vue.prototype.$eventHub = new Vue();
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.use(Vue2Filters);
+Vue.use(VueSpinnersCss);
 ShardsVue.install(Vue);
 
 new Vue({

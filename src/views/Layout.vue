@@ -11,7 +11,7 @@
         sm="12"
       >
         <!-- Main Navbar -->
-        <main-navbar :userName="getUser" />
+        <main-navbar />
 
         <!-- Content -->
         <router-view></router-view>
@@ -40,15 +40,10 @@ export default {
     MainFooter
   },
   computed: {
-    ...mapGetters(storeModule, ["getUser"])
   },
   methods: {
-    getUserSession() {
-      this.$store.dispatch(`${storeModule}/getUserSession`, { email: "1" });
-    }
   },
   mounted() {
-    this.getUserSession();
   }
 };
 </script>

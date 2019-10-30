@@ -29,7 +29,7 @@ const actions = {
     );
   },
   getPayday({ commit }, data) {
-    attendanceApi.getPayday(
+    return attendanceApi.getPayday(
       data,
       result => {
         var attendance = [];
@@ -65,6 +65,7 @@ const actions = {
           }
         });
         commit("SET_PAYDAY", attendance);
+        return true;
       },
       error => {
         return error;

@@ -2,16 +2,24 @@
   <d-container fluid class="main-content-container px-4">
     <div class="pa3">
       <h1 class="dib">Día de paga</h1>
-      <d-input-group size="sm" class="date-range justify-content-left w-auto-ns inline-flex ml4">
+      <d-input-group
+        size="sm"
+        class="date-range justify-content-left w-auto-ns inline-flex ml4"
+      >
         <d-datepicker placeholder="Fecha inicio" v-model="init_date" typeable />
         <d-datepicker placeholder="Fecha fin" v-model="end_date" typeable />
         <d-input-group-text slot="append" class="btn-search">
-          <font-awesome-icon icon="search" @click="obtainAttendance(false)" />
-          <!-- <button class="btn btn-accent" >Buscar</button> -->
+          <div @click="obtainAttendance(false)">
+            <font-awesome-icon icon="search"/>
+            Buscar
+          </div>
         </d-input-group-text>
       </d-input-group>
     </div>
-    <div class="row">
+    <div class="row col-12 tc" v-show="loading" >
+      <EllipsisLoader color="#58b368" class="m-auto" />
+    </div>
+    <div class="row" v-if="!loading">
       <div class="col-12">
         <div class="card">
           <div class="card-header border-bottom">
@@ -39,7 +47,7 @@
         </div>
       </div>
     </div>
-    <div class="row mt4">
+    <div class="row mt4" v-if="!loading">
       <div class="col">
         <div class="card card-small mb-4">
           <div class="card-header border-bottom">
@@ -56,7 +64,9 @@
                     class="border-0 tl"
                     v-for="date in dates"
                     :key="date.id"
-                  >{{ date.letra }}</th>
+                  >
+                    {{ date.letra }}
+                  </th>
                   <th scope="col" class="border-0 tl">Total</th>
                   <th scope="col" class="border-0 tl">$500</th>
                   <th scope="col" class="border-0 tl">$200</th>
@@ -68,7 +78,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(attendance, index) in getPayday" :key="attendance.id">
+                <tr
+                  v-for="(attendance, index) in getPayday"
+                  :key="attendance.id"
+                >
                   <td>{{ index + 1 }}</td>
                   <td>{{ attendance.worker.nombre }}</td>
                   <td v-for="date in dates" :key="date.id" class="relative">
@@ -78,16 +91,24 @@
                         class="status-tbl"
                         :class="[payday.status ? 'bg-success' : 'bg-danger']"
                       >
-                        <font-awesome-icon v-if="!payday.status" icon="times-circle" />
-                        <font-awesome-icon v-else icon="check-circle" />
+                        <font-awesome-icon
+                          v-if="!payday.status"
+                          icon="times-circle"
+                          size="lg"
+                        />
+                        <font-awesome-icon v-else icon="check-circle" size="lg" />
                       </div>
                     </div>
                   </td>
-                  <td class="b tl">{{ round5(attendance.total.toFixed(2)) | currency }}</td>
+                  <td class="b tl">
+                    {{ round5(attendance.total.toFixed(2)) | currency }}
+                  </td>
                   <td
                     v-for="moneda in calculateBills(attendance.total)"
                     :key="moneda.id"
-                  >{{ moneda }}</td>
+                  >
+                    {{ moneda }}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -110,11 +131,14 @@ export default {
     return {
       init_date: new Date(Date.now()).toLocaleString().slice(0, 10),
       end_date: new Date(Date.now()).toLocaleString().slice(0, 10),
-      dates: []
+      dates: [],
+      loading: false
     };
   },
   methods: {
     obtainAttendance(first) {
+      this.loading = true
+      console.log(this.loading);
       if (first) {
         this.init_date = moment(this.init_date)
           .startOf("week")
@@ -131,7 +155,10 @@ export default {
         .reverse()
         .join("/");
       this.enumerateDaysBetweenDates(this.init_date, this.end_date);
-      this.$store.dispatch(`${storeModule}/getPayday`, data);
+      this.$store.dispatch(`${storeModule}/getPayday`, data).then(() => {
+        this.loading = false;
+        console.log(this.loading);
+      });
     },
     enumerateDaysBetweenDates(startDate, endDate) {
       this.dates = [];
@@ -147,7 +174,6 @@ export default {
       }
     },
     calculateBills(total) {
-      console.log(total);
       const monedas = [500, 200, 100, 50, 20, 10, 5];
       var cambio = [0, 0, 0, 0, 0, 0, 0];
       for (var i = 0; i < monedas.length; i++) {
@@ -162,7 +188,6 @@ export default {
           cambio[i] = parseInt(total / monedas[i]);
         }
       }
-      console.log(cambio);
       return cambio;
     },
     nombreMoneda(index) {
@@ -193,7 +218,6 @@ export default {
       this.getPayday.forEach(pay => {
         total_cambio.push(this.calculateBills(pay.total));
       });
-      console.log(total_cambio);
       let result = total_cambio.reduce(
         (r, a) => a.map((b, i) => (r[i] || 0) + b),
         []
@@ -218,10 +242,9 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  p {
-    margin-bottom: 0;
-    padding-top: 0.8rem;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .btn-search {
   transition: all 0.3s ease-in-out;

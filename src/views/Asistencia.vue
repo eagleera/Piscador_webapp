@@ -2,8 +2,17 @@
   <d-container fluid class="main-content-container px-4">
     <div class="pa3">
       <h1 class="dib">Asistencia</h1>
-      <d-input-group size="sm" class="date-range justify-content-left w-auto-ns inline-flex ml4">
-        <d-datepicker placeholder="Fecha" v-model="date" @input="obtainAttendance" typeable small />
+      <d-input-group
+        size="sm"
+        class="date-range justify-content-left w-auto-ns inline-flex ml4"
+      >
+        <d-datepicker
+          placeholder="Fecha"
+          v-model="date"
+          @input="obtainAttendance"
+          typeable
+          small
+        />
         <d-input-group-text slot="append">
           <font-awesome-icon icon="search" />
         </d-input-group-text>
@@ -52,7 +61,12 @@
                   <td>{{ index }}</td>
                   <td>{{ worker.worker.nombre }}</td>
                   <td>
-                    <d-checkbox toggle class="custom-toggle-sm" checked v-model="worker.status" />
+                    <d-checkbox
+                      toggle
+                      class="custom-toggle-sm"
+                      checked
+                      v-model="worker.status"
+                    />
                   </td>
                 </tr>
               </tbody>
@@ -66,7 +80,9 @@
         class="btn btn-primary mr3"
         @click="addAttendance"
         v-if="getAttendance.length == 0"
-      >Guardar</button>
+      >
+        Guardar
+      </button>
     </div>
   </d-container>
 </template>
