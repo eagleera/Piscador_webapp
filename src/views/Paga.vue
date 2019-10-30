@@ -78,8 +78,8 @@
                         class="status-tbl"
                         :class="[payday.status ? 'bg-success' : 'bg-danger']"
                       >
-                        <font-awesome-icon v-if="!payday.status" icon="fa-times-circle" />
-                        <font-awesome-icon v-else icon="fa-check-circle" />
+                        <font-awesome-icon v-if="!payday.status" icon="times-circle" />
+                        <font-awesome-icon v-else icon="check-circle" />
                       </div>
                     </div>
                   </td>
