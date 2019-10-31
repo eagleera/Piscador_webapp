@@ -10,13 +10,13 @@
         <d-datepicker placeholder="Fecha fin" v-model="end_date" typeable />
         <d-input-group-text slot="append" class="btn-search">
           <div @click="obtainAttendance(false)">
-            <font-awesome-icon icon="search"/>
+            <font-awesome-icon icon="search" />
             Buscar
           </div>
         </d-input-group-text>
       </d-input-group>
     </div>
-    <div class="row col-12 tc" v-show="loading" >
+    <div class="row col-12 tc" v-show="loading">
       <EllipsisLoader color="#58b368" class="m-auto" />
     </div>
     <div class="row" v-if="!loading">
@@ -96,7 +96,11 @@
                           icon="times-circle"
                           size="lg"
                         />
-                        <font-awesome-icon v-else icon="check-circle" size="lg" />
+                        <font-awesome-icon
+                          v-else
+                          icon="check-circle"
+                          size="lg"
+                        />
                       </div>
                     </div>
                   </td>
@@ -137,8 +141,7 @@ export default {
   },
   methods: {
     obtainAttendance(first) {
-      this.loading = true
-      console.log(this.loading);
+      this.loading = true;
       if (first) {
         this.init_date = moment(this.init_date)
           .startOf("week")

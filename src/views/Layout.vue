@@ -28,9 +28,6 @@
 import MainNavbar from "@/components/layout/MainNavbar.vue";
 import MainSidebar from "@/components/layout/MainSidebar.vue";
 import MainFooter from "@/components/layout/MainFooter.vue";
-import { mapGetters } from "vuex";
-
-let storeModule = "session";
 
 export default {
   name: "home",
@@ -38,12 +35,6 @@ export default {
     MainNavbar,
     MainSidebar,
     MainFooter
-  },
-  computed: {
-  },
-  methods: {
-  },
-  mounted() {
   }
 };
 </script>

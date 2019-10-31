@@ -18,10 +18,11 @@ const mutations = {
 };
 const actions = {
   get({ commit }, data) {
-    attendanceApi.get(
+    return attendanceApi.get(
       data,
       result => {
         commit("SET_ATTENDANCE", result.data);
+        return true;
       },
       error => {
         return error;
@@ -54,7 +55,9 @@ const actions = {
             attendance.forEach(attend => {
               if (attend.worker_id == att.worker_id) {
                 if (att.status) {
-                  attend.total = parseFloat(att.worker.role.cantidad) + parseFloat(attend.total);
+                  attend.total =
+                    parseFloat(att.worker.role.cantidad) +
+                    parseFloat(attend.total);
                 }
                 attend.payday.push({
                   status: att.status,

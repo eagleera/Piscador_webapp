@@ -21,9 +21,10 @@ const mutations = {
 };
 const actions = {
   get({ commit }) {
-    rolesApi.get(
+    return rolesApi.get(
       result => {
         commit("INIT_ROLES", result.data);
+        return true;
       },
       error => {
         return error;

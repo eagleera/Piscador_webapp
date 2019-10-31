@@ -9,7 +9,10 @@
         </button>
       </h1>
     </div>
-    <div class="row">
+    <div class="row col-12 tc" v-show="loading">
+      <EllipsisLoader color="#58b368" class="m-auto" />
+    </div>
+    <div class="row" v-if="!loading">
       <div class="col-12 col-md-4 mb4" v-if="toggleRol">
         <div class="card h-100">
           <div class="border-bottom card-header">
@@ -132,7 +135,8 @@ export default {
       toggleRol: false,
       nombre: "",
       cantidad: 0,
-      tipo_id: null
+      tipo_id: null,
+      loading: false
     };
   },
   methods: {
@@ -140,7 +144,10 @@ export default {
       this.toggleRol = true;
     },
     obtainRoles() {
-      this.$store.dispatch(`${storeModule}/get`);
+      this.loading = true;
+      this.$store.dispatch(`${storeModule}/get`).then(()=>{
+        this.loading = false;
+      });
     },
     obtainTypes() {
       this.$store.dispatch(`${storeModule}/getTypes`);

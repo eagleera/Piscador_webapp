@@ -18,7 +18,10 @@
         </d-input-group-text>
       </d-input-group>
     </div>
-    <div class="row mt4">
+    <div class="row col-12 tc" v-show="loading">
+      <EllipsisLoader color="#58b368" class="m-auto" />
+    </div>
+    <div class="row mt4" v-if="!loading">
       <div class="col-12 col-sm-8 offset-sm-2">
         <div class="card card-small mb-4">
           <div class="card-header border-bottom">
@@ -101,7 +104,8 @@ export default {
       toggleWorker: false,
       nombre: "",
       rol_id: 0,
-      date: new Date(Date.now()).toLocaleString().slice(0, 10)
+      date: new Date(Date.now()).toLocaleString().slice(0, 10),
+      loading: false
     };
   },
   methods: {
@@ -117,8 +121,10 @@ export default {
     },
     obtainAttendance() {
       let date = moment(this.date).format("YYYY-MM-DD");
-      console.log(date);
-      this.$store.dispatch(`${storeModuleAttendance}/get`, date);
+      this.loading = true;
+      this.$store.dispatch(`${storeModuleAttendance}/get`, date).then(() => {
+        this.loading = false;
+      });
     }
   },
   computed: {

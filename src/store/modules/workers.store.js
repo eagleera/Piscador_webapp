@@ -16,7 +16,7 @@ const mutations = {
 };
 const actions = {
   get({ commit }, data) {
-    workersApi.get(
+    return workersApi.get(
       result => {
         if (data) {
           result.data.forEach(result => {
@@ -24,6 +24,7 @@ const actions = {
           });
         }
         commit("INIT_WORKERS", result.data);
+        return true;
       },
       error => {
         return error;
@@ -40,6 +41,9 @@ const actions = {
         return error;
       }
     );
+  },
+  update({ commit }, data, index) {
+    console.log(data, index);
   }
 };
 

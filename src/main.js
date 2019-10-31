@@ -7,6 +7,8 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faSearch,
   faBell,
+  faMarker,
+  faTrash,
   faUsers,
   faLeaf,
   faChess,
@@ -16,6 +18,7 @@ import {
   faClipboardCheck,
   faMoneyBillWave,
   faPlus,
+  faTimes,
   faTimesCircle,
   faCheckCircle
 } from "@fortawesome/free-solid-svg-icons";
@@ -31,6 +34,8 @@ import "tachyons";
 library.add(
   faSearch,
   faBell,
+  faMarker,
+  faTrash,
   faUsers,
   faLeaf,
   faChess,
@@ -40,6 +45,7 @@ library.add(
   faClipboardCheck,
   faMoneyBillWave,
   faPlus,
+  faTimes,
   faTimesCircle,
   faCheckCircle
 );
