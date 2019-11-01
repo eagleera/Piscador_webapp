@@ -12,6 +12,12 @@ const mutations = {
   },
   ADD_WORKER(state, worker) {
     state.workers.unshift(worker);
+  },
+  EDIT_WORKER(state, data) {
+    state.workers[data.index] = data.worker;
+  },
+  DELETE_WORKER(state, data) {
+    state.workers.splice(data.index, 1);
   }
 };
 const actions = {
@@ -42,8 +48,30 @@ const actions = {
       }
     );
   },
-  update({ commit }, data, index) {
-    console.log(data, index);
+  update({ commit }, data) {
+    console.log(data);
+    return workersApi.update(
+      data,
+      () => {
+        commit("EDIT_WORKER", data);
+        return true;
+      },
+      error => {
+        return error;
+      }
+    );
+  },
+  delete({ commit }, data) {
+    return workersApi.delete(
+      data,
+      () => {
+        commit("DELETE_WORKER", data);
+        return true;
+      },
+      error => {
+        return error;
+      }
+    )
   }
 };
 

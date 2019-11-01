@@ -82,7 +82,10 @@
         <div class="card h-100">
           <div class="border-bottom card-header">
             <h6 class="mb0 dib">Empleado</h6>
-            <div class="icon-container delete fr">
+            <div 
+              class="icon-container delete fr"
+              @click="deleteWorker(worker, index)"
+            >
               <font-awesome-icon icon="trash"></font-awesome-icon>
             </div>
             <div
@@ -199,10 +202,44 @@ export default {
       });
     },
     editWorker(worker, index) {
-      console.log(worker.nombre);
+      const data = {
+        worker: worker,
+        index: index
+      }
       this.$store
-        .dispatch(`${storeModuleWorkers}/update`, worker, index)
+        .dispatch(`${storeModuleWorkers}/update`, data)
         .then(() => {
+          this.$toasted.show('El trabajador ha sido actualizado', {
+            type: 'success',
+            icon: 'thumbs-up',
+            action: {
+              text : 'Okay',
+              onClick : (e, toastObject) => {
+                  toastObject.goAway(0);
+              }
+            }
+          });
+          this.toggleEdit = null;
+        });
+    },
+    deleteWorker(worker, index) {
+      const data = {
+        worker: worker,
+        index: index
+      }
+      this.$store
+        .dispatch(`${storeModuleWorkers}/delete`, data)
+        .then(() => {
+          this.$toasted.show('El trabajador ha sido eliminado', {
+            type: 'success',
+            icon: 'thumbs-up',
+            action: {
+              text : 'Okay',
+              onClick : (e, toastObject) => {
+                  toastObject.goAway(0);
+              }
+            }
+          });
           this.toggleEdit = null;
         });
     }

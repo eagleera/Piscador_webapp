@@ -38,3 +38,18 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.toasted-primary {
+  padding: 15px 40px;
+  right: -70px;
+  top: 20px;
+  &.success {
+    background-color: #19c671 !important;
+  }
+  .action {
+    color: white !important;
+  }
+}
+
+</style>

@@ -25,6 +25,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Vue2Filters from "vue2-filters";
 import * as VueSpinnersCss from "vue-spinners-css";
+import Toasted from "vue-toasted";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "@/scss/shards-dashboards.scss";
@@ -54,6 +55,9 @@ Vue.prototype.$eventHub = new Vue();
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.use(Vue2Filters);
 Vue.use(VueSpinnersCss);
+Vue.use(Toasted, {
+  iconPack: "fontawesome"
+});
 ShardsVue.install(Vue);
 
 new Vue({
