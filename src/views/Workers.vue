@@ -24,8 +24,8 @@
     <div class="row col-12 tc" v-show="loading">
       <EllipsisLoader color="#58b368" class="m-auto" />
     </div>
-    <div class="row" v-if="!loading">
-      <div class="col-12 col-md-4 mb4" v-if="toggleWorker">
+    <div class="row mt3" v-if="!loading">
+      <div class="col-12 col-sm-6 col-md-4 mb4" v-if="toggleWorker">
         <div class="card h-100">
           <div class="border-bottom card-header">
             <h6 class="mb0">Nuevo trabajador</h6>
@@ -75,7 +75,7 @@
         </div>
       </div>
       <div
-        class="col-6 col-md-4 mb4"
+        class="col-12 col-sm-6 col-md-4 mb4"
         v-for="(worker, index) in getWorkers"
         :key="worker.id"
       >
