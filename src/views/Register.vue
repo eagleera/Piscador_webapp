@@ -4,9 +4,12 @@
       <div class="col-12 offset-md-4 col-md-4">
         <div class="card">
           <div class="card-header border-bottom">
-            <h1 class="mb0 mt0">Registrarme</h1>
+            <div class="img-container col-12 tc">
+              <img class="m-auto" src="@/assets/logo_black.png" alt="">
+            </div>
           </div>
-          <div class="card-body">
+          <div class="card-body pt2">
+            <h1 class="mb0 mt0">Registrarme</h1>
             <div class="form-group">
               <label for="email">Email</label>
               <input

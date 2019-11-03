@@ -14,18 +14,13 @@
         class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0"
       >
         <a class="navbar-brand w-100 mr-0" style="line-height: 25px;">
-          <div class="d-table m-auto">
-            <!-- <img
+          <div class="col-12 tc">
+            <img
               id="main-logo"
-              class="d-inline-block align-top mr-1"
-              style="max-width: 25px;"
-              src="@/assets/logo.png"
-              alt="Piscador"
-            /> -->
-            <font-awesome-icon icon="leaf" size="2x" />
-            <span class="d-none d-md-inline ml-1 v-btm-txt">
-              Piscador
-            </span>
+              class="max-h-100"
+              src="@/assets/logo_black.png"
+              alt="Logo pizcador"
+            />
           </div>
         </a>
         <a
@@ -108,6 +103,12 @@ export default {
   .dropdown-menu {
     display: block;
   }
+}
+.max-h-100{
+  max-height: 100%;
+}
+.nav-link{
+  cursor: pointer;
 }
 .v-btm-txt {
   vertical-align: text-bottom;
