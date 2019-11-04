@@ -5,7 +5,7 @@
         <div class="card">
           <div class="card-header border-bottom">
             <div class="img-container col-12 tc">
-              <img class="m-auto" src="@/assets/logo_black.png" alt="">
+              <img class="m-auto" src="@/assets/logo_black.png" alt="" />
             </div>
           </div>
           <div class="card-body pt2">
@@ -78,13 +78,12 @@ export default {
   },
   methods: {
     register() {
-      this.$store
-        .dispatch(`${storeModule}/tryRegister`, {
-          email: this.email,
-          name: this.name,
-          password: this.password,
-          password_confirmation: this.password_confirmation
-        })
+      this.$store.dispatch(`${storeModule}/tryRegister`, {
+        email: this.email,
+        name: this.name,
+        password: this.password,
+        password_confirmation: this.password_confirmation
+      });
     }
   }
 };

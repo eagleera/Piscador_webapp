@@ -5,7 +5,7 @@
         <div class="card">
           <div class="card-header border-bottom">
             <div class="img-container col-12 tc">
-              <img class="m-auto" src="@/assets/logo_black.png" alt="">
+              <img class="m-auto" src="@/assets/logo_black.png" alt="" />
             </div>
           </div>
           <div class="card-body pt2">
@@ -30,10 +30,7 @@
               />
             </div>
             <div class="col-12 pa0">
-              <button
-                class="btn btn-primary col-12"
-                v-on:click="login"
-              >
+              <button class="btn btn-primary col-12" v-on:click="login">
                 Iniciar sesión
               </button>
             </div>
@@ -48,7 +45,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 let storeModule = "session";
 
 export default {
@@ -61,28 +58,30 @@ export default {
   },
   methods: {
     login() {
-      this.$store
-        .dispatch(`${storeModule}/tryLogin`, {
-          email: this.email,
-          password: this.password
-        })
+      this.$store.dispatch(`${storeModule}/tryLogin`, {
+        email: this.email,
+        password: this.password
+      });
     }
   },
   computed: {
     ...mapGetters(storeModule, ["getLoggedIn", "getUser"])
   },
   created() {
-    if(this.getUser) { 
-      this.$toasted.show('¡Tu usuario ha sido creado! Ahora puedes iniciar sesión', {
-        type: 'success',
-        icon: 'thumbs-up',
-        action: {
-          text : 'Okay',
-          onClick : (e, toastObject) => {
+    if (this.getUser) {
+      this.$toasted.show(
+        "¡Tu usuario ha sido creado! Ahora puedes iniciar sesión",
+        {
+          type: "success",
+          icon: "thumbs-up",
+          action: {
+            text: "Okay",
+            onClick: (e, toastObject) => {
               toastObject.goAway(0);
+            }
           }
         }
-      });
+      );
       this.email = this.getUser.email;
     }
   }
