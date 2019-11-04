@@ -31,8 +31,10 @@ const actions = {
       data,
       result => {
         if (result.data.token) {
-          localStorage.setItem("accessToken", result.data.token);
-          commit("LOG_USER", result.data.token);
+          console.log(result.data);
+          localStorage.setItem("accessToken", result.data.token.token);
+          commit("LOG_USER", result.data.token.token);
+          commit("REGISTER_USER", result.data.token);
         }
         router.push("/assistance");
       },

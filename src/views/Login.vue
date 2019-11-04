@@ -37,6 +37,9 @@
                 Iniciar sesión
               </button>
             </div>
+            <div class="col-12 tc mt3">
+              <a href="/register">¿Aún no tienes una cuenta? Registrate aquí</a>
+            </div>
           </div>
         </div>
       </div>
@@ -66,7 +69,22 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(storeModule, ["getLoggedIn"])
+    ...mapGetters(storeModule, ["getLoggedIn", "getUser"])
+  },
+  created() {
+    if(this.getUser) { 
+      this.$toasted.show('¡Tu usuario ha sido creado! Ahora puedes iniciar sesión', {
+        type: 'success',
+        icon: 'thumbs-up',
+        action: {
+          text : 'Okay',
+          onClick : (e, toastObject) => {
+              toastObject.goAway(0);
+          }
+        }
+      });
+      this.email = this.getUser.email;
+    }
   }
 };
 </script>

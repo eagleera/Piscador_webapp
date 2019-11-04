@@ -53,6 +53,9 @@
                 Registrarme
               </button>
             </div>
+            <div class="col-12 tc mt3">
+              <a href="/">¿Ya tienes una cuenta? Inicia sesión</a>
+            </div>
           </div>
         </div>
       </div>

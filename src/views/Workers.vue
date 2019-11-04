@@ -255,7 +255,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .icon-container {
   border-radius: 100%;
   padding: 4px 7px;
