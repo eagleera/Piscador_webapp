@@ -2,7 +2,7 @@
   <d-container fluid class="main-content-container px-4">
     <div class="pa3">
       <h1>
-        Roles {{getUser}}
+        Roles
         <button v-if="!toggleRol" class="btn btn-primary fr" @click="toggleAddRol">
           <font-awesome-icon icon="plus" />Agregar nuevo
         </button>
@@ -46,6 +46,9 @@
                       <label for="tipo">Tipo</label>
                       <div class="input-group">
                         <select v-model="tipo_id" id="tipo" class="form-control">
+                          <option :value="null" disabled>
+                            Selecciona uno...
+                          </option>
                           <option
                             :value="type.id"
                             v-for="type in getTypes"
@@ -174,7 +177,6 @@ export default {
     },
     addRol() {
       const data = {
-        user_id: this.getUser.id,
         nombre: this.nombre,
         cantidad: this.cantidad,
         tipo_id: this.tipo_id

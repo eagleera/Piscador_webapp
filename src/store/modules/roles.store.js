@@ -42,10 +42,11 @@ const actions = {
     );
   },
   post({ commit }, data) {
-    rolesApi.post(
+    return rolesApi.post(
       data,
-      result => {
+      () => {
         commit("ADD_ROLE", data);
+        return true;
       },
       error => {
         return error;
