@@ -61,6 +61,7 @@ const actions = {
   logout({ commit }) {
     localStorage.removeItem("accessToken");
     commit("LOGOUT");
+    router.push("/");
   }
 };
 

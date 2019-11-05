@@ -104,10 +104,10 @@ export default {
     display: block;
   }
 }
-.max-h-100{
+.max-h-100 {
   max-height: 100%;
 }
-.nav-link{
+.nav-link {
   cursor: pointer;
 }
 .v-btm-txt {

@@ -1,9 +1,8 @@
 <template>
   <d-navbar-nav class="border-left flex-row">
-    <li class="nav-item border-right dropdown notifications">
+    <!-- <li class="nav-item border-right dropdown notifications">
       <a class="nav-link nav-link-icon text-center" v-d-toggle.notifications>
         <div class="nav-link-icon__wrapper">
-          <!-- <i class="material-icons">&#xE7F4;</i> -->
           <font-awesome-icon icon="bell" size="2x" class="mt2" />
           <d-badge pill theme="danger">2</d-badge>
         </div>
@@ -43,7 +42,7 @@
           View all Notifications
         </d-dropdown-item>
       </d-collapse>
-    </li>
+    </li> -->
     <li class="nav-item dropdown">
       <a
         class="nav-link dropdown-toggle text-nowrap px-3"
@@ -57,7 +56,7 @@
         <span class="d-none d-md-inline-block">{{ userName }}</span>
       </a>
       <d-collapse id="user-actions" class="dropdown-menu dropdown-menu-small">
-        <d-dropdown-item>
+        <!-- <d-dropdown-item>
           <i class="material-icons">&#xE7FD;</i> Profile
         </d-dropdown-item>
         <d-dropdown-item>
@@ -69,9 +68,10 @@
         <d-dropdown-item>
           <i class="material-icons">&#xE896;</i> Transactions
         </d-dropdown-item>
-        <d-dropdown-divider />
-        <d-dropdown-item href="#" class="text-danger">
-          <i class="material-icons text-danger">&#xE879;</i> Logout
+        <d-dropdown-divider /> -->
+        <d-dropdown-item href="logout" class="text-danger" >
+          <font-awesome-icon icon="door-open" />
+          Logout
         </d-dropdown-item>
       </d-collapse>
     </li>
@@ -89,6 +89,11 @@ export default {
   name: "navBar",
   props: {
     userName: String
+  },
+  methods: {
+    logout() {
+      console.log("Suh");
+    }
   }
 };
 </script>

@@ -8,6 +8,7 @@ import Diario from "./views/Diario.vue";
 import Asistencia from "./views/Asistencia.vue";
 import Paga from "./views/Paga.vue";
 import Login from "./views/Login.vue";
+import Logout from "./views/Logout.vue";
 import Register from "./views/Register.vue";
 
 Vue.use(Router);
@@ -52,6 +53,11 @@ const router = new Router({
       path: "/register",
       name: "register",
       component: Register
+    },
+    {
+      path: "/logout",
+      name: "logout",
+      component: Logout
     }
   ]
 });
