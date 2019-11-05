@@ -4,25 +4,41 @@ import axios from "axios";
 export default {
   get(onSuccess, onError) {
     return axios
-      .get(`${config.host}/workers`)
+      .get(`${config.host}/workers`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("accessToken")
+        }
+      })
       .then(onSuccess)
       .catch(onError);
   },
   post(data, onSuccess, onError) {
     return axios
-      .post(`${config.host}/worker`, data)
+      .post(`${config.host}/worker`, data, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("accessToken")
+        }
+      })
       .then(onSuccess)
       .catch(onError);
   },
   update(data, onSuccess, onError) {
     return axios
-      .patch(`${config.host}/worker/${data.worker.id}`, data.worker)
+      .patch(`${config.host}/worker/${data.worker.id}`, data.worker, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("accessToken")
+        }
+      })
       .then(onSuccess)
       .catch(onError);
   },
   delete(data, onSuccess, onError) {
     return axios
-      .delete(`${config.host}/worker/${data.worker.id}`)
+      .delete(`${config.host}/worker/${data.worker.id}`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("accessToken")
+        }
+      })
       .then(onSuccess)
       .catch(onError);
   }
