@@ -69,10 +69,10 @@
           <i class="material-icons">&#xE896;</i> Transactions
         </d-dropdown-item>
         <d-dropdown-divider /> -->
-        <d-dropdown-item href="logout" class="text-danger" >
-          <font-awesome-icon icon="door-open" />
-          Logout
-        </d-dropdown-item>
+        <d-dropdown-item href="logout">
+          <font-awesome-icon icon="sign-out-alt" />
+            Logout
+          </d-dropdown-item>
       </d-collapse>
     </li>
   </d-navbar-nav>

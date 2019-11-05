@@ -27,7 +27,7 @@ const mutations = {
 };
 const actions = {
   tryLogin({ commit }, data) {
-    sessionApi.tryLogin(
+    return sessionApi.tryLogin(
       data,
       result => {
         if (result.data.token) {
@@ -37,6 +37,7 @@ const actions = {
           commit("REGISTER_USER", result.data.token);
         }
         router.push("/assistance");
+        return true;
       },
       error => {
         return error;

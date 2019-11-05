@@ -9,8 +9,8 @@
             </div>
           </div>
           <div class="card-body pt2">
-            <h1 class="mb0 mt0">Registrarme</h1>
-            <div class="form-group">
+            <h4 class="mb0 mt0">Registrarme</h4>
+            <div class="form-group mt3">
               <label for="email">Email</label>
               <input
                 id="email"

@@ -9,15 +9,15 @@
             </div>
           </div>
           <div class="card-body pt2">
-            <h1 class="mb0 mt0">Iniciar Sesión</h1>
-            <div class="form-group">
+            <h4 class="mb0 mt0">Iniciar Sesión</h4>
+            <div class="form-group mt3">
               <label for="email">Email</label>
-              <input
+              <d-input
                 id="email"
-                type="email"
-                placeholder="dd@gg.com"
+                class="mb-2 mr-sm-2 mb-sm-0"
                 v-model="email"
-                class="form-control"
+                placeholder="email@ejemplo.com"
+                required
               />
             </div>
             <div class="form-group">
@@ -29,8 +29,13 @@
                 v-model="password"
               />
             </div>
+            <div class="col-12 pa0" v-if="error">
+              <d-alert theme="danger" show>
+                Contraseña o usuario invalidos
+              </d-alert>
+            </div>
             <div class="col-12 pa0">
-              <button class="btn btn-primary col-12" v-on:click="login">
+              <button class="btn btn-primary col-12" @click="login">
                 Iniciar sesión
               </button>
             </div>
@@ -53,15 +58,24 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      error: false
     };
   },
   methods: {
     login() {
-      this.$store.dispatch(`${storeModule}/tryLogin`, {
-        email: this.email,
-        password: this.password
-      });
+      this.$store
+        .dispatch(`${storeModule}/tryLogin`, {
+          email: this.email,
+          password: this.password
+        })
+        .then(res => {
+          if (res.response) {
+            if (res.response.status == 401) {
+              this.error = true;
+            }
+          }
+        });
     }
   },
   computed: {
