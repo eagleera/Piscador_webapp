@@ -21,7 +21,8 @@ import {
   faTimes,
   faTimesCircle,
   faCheckCircle,
-  faSignOutAlt
+  faSignOutAlt,
+  faTerminal
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Vue2Filters from "vue2-filters";
@@ -50,7 +51,8 @@ library.add(
   faTimes,
   faTimesCircle,
   faCheckCircle,
-  faSignOutAlt
+  faSignOutAlt,
+  faTerminal
 );
 Vue.config.productionTip = false;
 Vue.prototype.$eventHub = new Vue();

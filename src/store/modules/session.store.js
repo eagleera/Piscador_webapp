@@ -30,14 +30,17 @@ const actions = {
     return sessionApi.tryLogin(
       data,
       result => {
-        if (result.data.token) {
-          console.log(result.data);
-          localStorage.setItem("accessToken", result.data.token.token);
-          commit("LOG_USER", result.data.token.token);
-          commit("REGISTER_USER", result.data.token);
+        if (result.data) {
+          localStorage.setItem("accessToken", result.data.token);
+          commit("LOG_USER", result.data.token);
+          commit("REGISTER_USER", result.data);
+          if (result.data.ranch == false) {
+            router.push("/firsttime");
+          } else {
+            router.push("/assistance");
+          }
+          return true;
         }
-        router.push("/assistance");
-        return true;
       },
       error => {
         return error;

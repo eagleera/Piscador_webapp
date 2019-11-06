@@ -2,14 +2,16 @@ import Vue from "vue";
 import store from "./store/index";
 import Layout from "./views/Layout.vue";
 import Router from "vue-router";
-import Workers from "./views/Workers.vue";
-import Roles from "./views/Roles.vue";
-import Diario from "./views/Diario.vue";
+//VIEWS
 import Asistencia from "./views/Asistencia.vue";
-import Paga from "./views/Paga.vue";
+import Diario from "./views/Diario.vue";
+import FirstTime from "./views/FirstTime.vue";
 import Login from "./views/Login.vue";
 import Logout from "./views/Logout.vue";
+import Paga from "./views/Paga.vue";
 import Register from "./views/Register.vue";
+import Roles from "./views/Roles.vue";
+import Workers from "./views/Workers.vue";
 
 Vue.use(Router);
 
@@ -58,6 +60,11 @@ const router = new Router({
       path: "/logout",
       name: "logout",
       component: Logout
+    },
+    {
+      path: "/firsttime",
+      name: "first time",
+      component: FirstTime
     }
   ]
 });

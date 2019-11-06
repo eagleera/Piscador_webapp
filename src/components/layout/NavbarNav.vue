@@ -71,8 +71,8 @@
         <d-dropdown-divider /> -->
         <d-dropdown-item href="logout">
           <font-awesome-icon icon="sign-out-alt" />
-            Logout
-          </d-dropdown-item>
+          Logout
+        </d-dropdown-item>
       </d-collapse>
     </li>
   </d-navbar-nav>
