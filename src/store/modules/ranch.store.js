@@ -15,9 +15,9 @@ const actions = {
   post({ commit }, data) {
     return ranchApi.post(
       data,
-      () => {
+      res => {
         commit("INIT_RANCH", data);
-        return true;
+        return res;
       },
       error => {
         return error;

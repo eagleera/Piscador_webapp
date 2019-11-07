@@ -117,6 +117,7 @@
 
 <script>
 let storeModule = "ranch";
+import router from "@/router";
 
 export default {
   name: "FirstTime",
@@ -136,8 +137,11 @@ export default {
       this.type = tipo;
     },
     createRanch() {
-      console.log(this.form.name);
-      this.$store.dispatch(`${storeModule}/post`, this.form);
+      this.$store.dispatch(`${storeModule}/post`, this.form).then(res => {
+        if(res.data.status == "created"){
+          router.push("/");
+        }
+      });
     }
   }
 };
