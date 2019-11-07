@@ -58,7 +58,7 @@
                       />
                     </d-input-group>
                     <div class="col-12 pa0 tr">
-                      <d-button class="btn btn-primary" block-level>
+                      <d-button class="btn btn-primary" block-level @click="addInvite">
                         Aceptar
                       </d-button>
                     </div>
@@ -127,7 +127,8 @@ export default {
       form: {
         name: null,
         address: null,
-        size: null
+        size: null,
+        firsttime: true
       },
       codigo: null
     };
@@ -138,7 +139,14 @@ export default {
     },
     createRanch() {
       this.$store.dispatch(`${storeModule}/post`, this.form).then(res => {
-        if(res.data.status == "created"){
+        if (res.status == "created") {
+          router.push("/");
+        }
+      });
+    },
+    addInvite() {
+      this.$store.dispatch(`${storeModule}/addInvite`, this.codigo).then(res => {
+        if (res.status == "created") {
           router.push("/");
         }
       });

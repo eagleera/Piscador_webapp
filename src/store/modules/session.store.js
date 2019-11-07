@@ -1,5 +1,6 @@
 import sessionApi from "@/api/session.api";
 import router from "@/router";
+import axios from "axios";
 
 const state = {
   user: null,
@@ -33,6 +34,9 @@ const actions = {
         if (result.data) {
           localStorage.setItem("accessToken", result.data.token);
           commit("LOG_USER", result.data.token);
+          axios.defaults.headers.common = {
+            Authorization: `bearer ${result.data.token}`
+          };
           commit("REGISTER_USER", result.data);
           if (result.data.ranch == false) {
             router.push("/firsttime");
@@ -51,6 +55,7 @@ const actions = {
     sessionApi.tryRegister(
       data,
       result => {
+        console.log(result);
         commit("REGISTER_USER", result.data.user);
         router.push("/");
       },

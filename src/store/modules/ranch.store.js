@@ -16,8 +16,21 @@ const actions = {
     return ranchApi.post(
       data,
       res => {
-        commit("INIT_RANCH", data);
-        return res;
+        commit("INIT_RANCH", res.data.ranch);
+        commit("session/REGISTER_USER", res.data.user, { root: true });
+        return res.data;
+      },
+      error => {
+        return error;
+      }
+    );
+  },
+  addInvite({ commit }, codigo) {
+    return ranchApi.addInvite(
+      codigo,
+      res => {
+        commit("INIT_RANCH", res.data);
+        return res.data;
       },
       error => {
         return error;
