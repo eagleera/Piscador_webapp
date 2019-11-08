@@ -186,6 +186,16 @@ export default {
         this.cantidad = 0;
         this.tipo_id = null;
         this.toggleRol = false;
+        this.$toasted.show('El rol ha sido creado', {
+            type: 'success',
+            icon: 'thumbs-up',
+            action: {
+              text : 'Okay',
+              onClick : (e, toastObject) => {
+                  toastObject.goAway(0);
+              }
+            }
+          });
       });
     },
     toggleEditRole(id) {

@@ -12,7 +12,6 @@
       >
         <!-- Main Navbar -->
         <main-navbar />
-
         <!-- Content -->
         <router-view></router-view>
 

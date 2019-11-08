@@ -5,7 +5,7 @@
       class="align-items-stretch justify-content-end flex-md-nowrap p-0"
     >
       <!-- <navbar-search /> -->
-      <navbar-nav :userName="userName" />
+      <navbar-nav />
       <navbar-toggle />
     </d-navbar>
   </div>
@@ -26,10 +26,6 @@ export default {
     stickyTop: {
       type: Boolean,
       default: true
-    },
-    userName: {
-      type: String,
-      default: "Desconocido o.O"
     }
   }
 };

@@ -69,6 +69,11 @@ const actions = {
     commit("UPDATE_ACCES_TOKEN", localStorage.getItem("accessToken"));
   },
   me({ commit }) {
+    if (localStorage.getItem("accessToken")) {
+      axios.defaults.headers.common = {
+        Authorization: `bearer ${localStorage.getItem("accessToken")}`
+      };
+    }
     sessionApi.getMe(
       result => {
         console.log(result.data);
@@ -76,6 +81,8 @@ const actions = {
           localStorage.removeItem("accessToken");
           router.push("/");
         }
+        commit("REGISTER_USER", result.data.user);
+        commit("ranch/INIT_RANCH", result.data.user.ranch, { root: true });
       },
       error => {
         return error;

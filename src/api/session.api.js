@@ -16,11 +16,7 @@ export default {
   },
   getMe(onSuccess, onError) {
     return axios
-      .get(`${config.host}/me`,{
-        headers: {
-          Authentication: "Bearer " + localStorage.getItem("accessToken")
-        }
-      })
+      .get(`${config.host}/me`)
       .then(onSuccess)
       .catch(onError);
   }
