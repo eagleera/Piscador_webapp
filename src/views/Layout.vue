@@ -28,6 +28,10 @@
 import MainNavbar from "@/components/layout/MainNavbar.vue";
 import MainSidebar from "@/components/layout/MainSidebar.vue";
 import MainFooter from "@/components/layout/MainFooter.vue";
+import { mapGetters } from "vuex";
+
+let storeModuleRanch = "ranch";
+let storeModuleSession = "session";
 
 export default {
   name: "home",
@@ -35,6 +39,16 @@ export default {
     MainNavbar,
     MainSidebar,
     MainFooter
+  },
+  computed: {
+    ...mapGetters(storeModuleRanch, ["getRanch"])
+  },
+  created() {
+    if (this.getRanch) {
+      console.log(this.getRanch);
+    } else {
+      this.$store.dispatch(`${storeModuleSession}/me`);
+    }
   }
 };
 </script>
@@ -51,5 +65,4 @@ export default {
     color: white !important;
   }
 }
-
 </style>

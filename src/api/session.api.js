@@ -13,5 +13,15 @@ export default {
       .post(`${config.host}/register`, params)
       .then(onSuccess)
       .catch(onError);
+  },
+  getMe(onSuccess, onError) {
+    return axios
+      .get(`${config.host}/me`,{
+        headers: {
+          Authentication: "Bearer " + localStorage.getItem("accessToken")
+        }
+      })
+      .then(onSuccess)
+      .catch(onError);
   }
 };

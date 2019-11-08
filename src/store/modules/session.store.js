@@ -37,10 +37,12 @@ const actions = {
           axios.defaults.headers.common = {
             Authorization: `bearer ${result.data.token}`
           };
+          console.log(result.data);
           commit("REGISTER_USER", result.data);
           if (result.data.ranch == false) {
             router.push("/firsttime");
           } else {
+            commit("ranch/INIT_RANCH", result.data.ranch, { root: true });
             router.push("/assistance");
           }
           return true;
@@ -55,7 +57,6 @@ const actions = {
     sessionApi.tryRegister(
       data,
       result => {
-        console.log(result);
         commit("REGISTER_USER", result.data.user);
         router.push("/");
       },
@@ -67,10 +68,33 @@ const actions = {
   fetchAccessToken({ commit }) {
     commit("UPDATE_ACCES_TOKEN", localStorage.getItem("accessToken"));
   },
+  me({ commit }) {
+    sessionApi.getMe(
+      result => {
+        console.log(result.data);
+        if (result.data.msg == "unauthenticated") {
+          localStorage.removeItem("accessToken");
+          router.push("/");
+        }
+      },
+      error => {
+        return error;
+      }
+    );
+  },
   logout({ commit }) {
-    localStorage.removeItem("accessToken");
-    commit("LOGOUT");
-    router.push("/");
+    sessionApi.logout(
+      result => {
+        if (result.data.msg == "logged out") {
+          localStorage.removeItem("accessToken");
+          commit("LOGOUT");
+          router.push("/");
+        }
+      },
+      error => {
+        return error;
+      }
+    );
   }
 };
 
