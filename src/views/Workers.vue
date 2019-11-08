@@ -82,7 +82,7 @@
         <div class="card h-100">
           <div class="border-bottom card-header">
             <h6 class="mb0 dib">Empleado</h6>
-            <div 
+            <div
               class="icon-container delete fr"
               @click="deleteWorker(worker, index)"
             >
@@ -205,43 +205,39 @@ export default {
       const data = {
         worker: worker,
         index: index
-      }
-      this.$store
-        .dispatch(`${storeModuleWorkers}/update`, data)
-        .then(() => {
-          this.$toasted.show('El trabajador ha sido actualizado', {
-            type: 'success',
-            icon: 'thumbs-up',
-            action: {
-              text : 'Okay',
-              onClick : (e, toastObject) => {
-                  toastObject.goAway(0);
-              }
+      };
+      this.$store.dispatch(`${storeModuleWorkers}/update`, data).then(() => {
+        this.$toasted.show("El trabajador ha sido actualizado", {
+          type: "success",
+          icon: "thumbs-up",
+          action: {
+            text: "Okay",
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0);
             }
-          });
-          this.toggleEdit = null;
+          }
         });
+        this.toggleEdit = null;
+      });
     },
     deleteWorker(worker, index) {
       const data = {
         worker: worker,
         index: index
-      }
-      this.$store
-        .dispatch(`${storeModuleWorkers}/delete`, data)
-        .then(() => {
-          this.$toasted.show('El trabajador ha sido eliminado', {
-            type: 'success',
-            icon: 'thumbs-up',
-            action: {
-              text : 'Okay',
-              onClick : (e, toastObject) => {
-                  toastObject.goAway(0);
-              }
+      };
+      this.$store.dispatch(`${storeModuleWorkers}/delete`, data).then(() => {
+        this.$toasted.show("El trabajador ha sido eliminado", {
+          type: "success",
+          icon: "thumbs-up",
+          action: {
+            text: "Okay",
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0);
             }
-          });
-          this.toggleEdit = null;
+          }
         });
+        this.toggleEdit = null;
+      });
     }
   },
   computed: {

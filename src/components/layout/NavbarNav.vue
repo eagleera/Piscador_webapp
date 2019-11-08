@@ -44,18 +44,27 @@
       </d-collapse>
     </li>-->
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle text-nowrap px-3" v-d-toggle.user-actions>
-        <img class="user-avatar rounded-circle mr-2" src="@/assets/logo.png" alt="User Avatar" />
-        <span class="d-none d-md-inline-block">{{ getRanch ? getRanch.name : nombre }}</span>
+      <a
+        class="nav-link dropdown-toggle text-nowrap px-3"
+        v-d-toggle.user-actions
+      >
+        <img
+          class="user-avatar rounded-circle mr-2"
+          src="@/assets/logo.png"
+          alt="User Avatar"
+        />
+        <span class="d-none d-md-inline-block">
+          {{ getRanch ? getRanch.name : nombre }}
+        </span>
       </a>
       <d-collapse id="user-actions" class="dropdown-menu dropdown-menu-small">
         <d-dropdown-item href="changeRanch">
           <font-awesome-icon icon="exchange-alt" />
-           Cambiar rancho
+          Cambiar rancho
         </d-dropdown-item>
         <d-dropdown-item href="logout">
           <font-awesome-icon icon="sign-out-alt" />
-           Logout
+          Logout
         </d-dropdown-item>
       </d-collapse>
     </li>
@@ -66,7 +75,7 @@
 .nav-link:hover {
   cursor: pointer;
 }
-.main-navbar .navbar .nav-link{
+.main-navbar .navbar .nav-link {
   min-width: 10rem !important;
 }
 </style>
@@ -78,13 +87,13 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "navBar",
-  data(){
+  data() {
     return {
       nombre: ""
-    }
+    };
   },
   computed: {
     ...mapGetters(storeModuleRanch, ["getRanch"])
-  },
+  }
 };
 </script>

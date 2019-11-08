@@ -71,7 +71,7 @@ const actions = {
       error => {
         return error;
       }
-    )
+    );
   }
 };
 

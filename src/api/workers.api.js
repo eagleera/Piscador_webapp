@@ -24,21 +24,13 @@ export default {
   },
   update(data, onSuccess, onError) {
     return axios
-      .patch(`${config.host}/worker/${data.worker.id}`, data.worker, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("accessToken")
-        }
-      })
+      .patch(`${config.host}/worker/${data.worker.id}`, data.worker)
       .then(onSuccess)
       .catch(onError);
   },
   delete(data, onSuccess, onError) {
     return axios
-      .delete(`${config.host}/worker/${data.worker.id}`, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("accessToken")
-        }
-      })
+      .delete(`${config.host}/worker/${data.worker.id}`)
       .then(onSuccess)
       .catch(onError);
   }
