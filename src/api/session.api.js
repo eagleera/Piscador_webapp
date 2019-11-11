@@ -19,5 +19,15 @@ export default {
       .get(`${config.host}/me`)
       .then(onSuccess)
       .catch(onError);
+  },
+  logout(onSuccess, onError) {
+    return axios
+      .post(`${config.host}/logout`,{}, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("accessToken")
+        }
+      })
+      .then(onSuccess)
+      .catch(onError);
   }
 };

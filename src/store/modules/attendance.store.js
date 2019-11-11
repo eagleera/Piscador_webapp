@@ -21,6 +21,7 @@ const actions = {
     return attendanceApi.get(
       data,
       result => {
+        console.log(result.data);
         commit("SET_ATTENDANCE", result.data);
         return true;
       },
@@ -76,10 +77,11 @@ const actions = {
     );
   },
   post({ commit }, data) {
-    attendanceApi.post(
+    return attendanceApi.post(
       data,
       () => {
         commit("SET_ATTENDANCE", data);
+        return true;
       },
       error => {
         return error;

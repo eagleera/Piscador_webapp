@@ -74,6 +74,18 @@
           </div>
         </div>
       </div>
+      <div class="col-12 tc" v-if="getWorkers.length == 0 && !toggleWorker">
+        <div class="card pt5 pb5 row col-12">
+          <img src="@/assets/empty_state_workers.svg" alt="" />
+          <h3 class="pa3">Aún no se ha creado ningun trabajador...</h3>
+          <button
+            class="btn btn-primary col-4 offset-4"
+            @click="toggleAddWorker"
+          >
+            Crear mi primer trabajador
+          </button>
+        </div>
+      </div>
       <div
         class="col-12 col-sm-6 col-md-4 mb4"
         v-for="(worker, index) in getWorkers"
@@ -199,6 +211,16 @@ export default {
         this.toggleWorker = false;
         this.nombre = "";
         this.rol_id = null;
+        this.$toasted.show("El trabajador ha sido creado", {
+          type: "success",
+          icon: "thumbs-up",
+          action: {
+            text: "Okay",
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0);
+            }
+          }
+        });
       });
     },
     editWorker(worker, index) {

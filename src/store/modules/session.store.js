@@ -90,8 +90,10 @@ const actions = {
     );
   },
   logout({ commit }) {
+    console.log("suh");
     sessionApi.logout(
       result => {
+        console.log(result.data);
         if (result.data.msg == "logged out") {
           localStorage.removeItem("accessToken");
           commit("LOGOUT");

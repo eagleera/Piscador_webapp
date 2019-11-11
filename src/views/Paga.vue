@@ -89,10 +89,12 @@
                       <div
                         v-if="payday.date == date.dia"
                         class="status-tbl"
-                        :class="[payday.status ? 'bg-success' : 'bg-danger']"
+                        :class="[
+                          payday.status == '1' ? 'bg-success' : 'bg-danger'
+                        ]"
                       >
                         <font-awesome-icon
-                          v-if="!payday.status"
+                          v-if="payday.status == '0'"
                           icon="times-circle"
                           size="lg"
                         />

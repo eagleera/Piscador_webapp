@@ -38,10 +38,11 @@ const actions = {
     );
   },
   post({ commit }, data) {
-    workersApi.post(
+    return workersApi.post(
       data,
-      () => {
-        commit("ADD_WORKER", data);
+      result => {
+        commit("ADD_WORKER", result.data.worker);
+        return true;
       },
       error => {
         return error;
