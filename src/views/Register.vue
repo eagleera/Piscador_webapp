@@ -9,7 +9,7 @@
             </div>
           </div>
           <div class="card-body pt2">
-            <h4 class="mb0 mt0">Registrarme</h4>
+            <h4 class="mb0 mt0" id="title">Registrarme</h4>
             <div class="form-group mt3">
               <label for="email">Email</label>
               <input
@@ -49,7 +49,7 @@
               />
             </div>
             <div class="col-12 pa0">
-              <button class="btn btn-primary col-12" @click="register">
+              <button id="registerBtn" class="btn btn-primary col-12" @click="register">
                 Registrarme
               </button>
             </div>

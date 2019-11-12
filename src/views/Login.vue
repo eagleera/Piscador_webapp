@@ -9,13 +9,14 @@
             </div>
           </div>
           <div class="card-body pt2">
-            <h4 class="mb0 mt0">Iniciar Sesión</h4>
+            <h4 class="mb0 mt0" id="titleLogin">Iniciar Sesión</h4>
             <div class="form-group mt3">
               <label for="email">Email</label>
               <d-input
                 id="email"
                 class="mb-2 mr-sm-2 mb-sm-0"
                 v-model="email"
+                type="email"
                 placeholder="email@ejemplo.com"
                 required
               />
@@ -35,12 +36,12 @@
               </d-alert>
             </div>
             <div class="col-12 pa0">
-              <button class="btn btn-primary col-12" @click="login">
+              <button id="loginBtn" class="btn btn-primary col-12" @click="login">
                 Iniciar sesión
               </button>
             </div>
             <div class="col-12 tc mt3">
-              <a href="/register">¿Aún no tienes una cuenta? Registrate aquí</a>
+              <a id="registerAnchor" href="/register">¿Aún no tienes una cuenta? Registrate aquí</a>
             </div>
           </div>
         </div>

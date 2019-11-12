@@ -1,5 +1,5 @@
 <template>
-  <d-container fluid>
+  <d-container fluid id="mainLayout">
     <d-row>
       <!-- Main Sidebar -->
       <main-sidebar />
