@@ -32,6 +32,7 @@
                 </div>
                 <div class="col-4 tc">
                   <button
+                    id="ChooseNewRanchBtn"
                     class="btn"
                     :class="{
                       'btn-success': type == 'new',
@@ -64,7 +65,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-10 offset-1" v-if="type === 'new'">
+                <div class="col-10 offset-1" v-if="type === 'new'" id="newRanch">
                   <div class="form-group mt3">
                     <label for="name">Nombre del rancho</label>
                     <input
@@ -99,6 +100,7 @@
                   <div class="col-12 pa0 tr">
                     <d-button
                       class="btn btn-success"
+                      id="CreateRanchBtn"
                       block-level
                       @click="createRanch"
                     >
@@ -139,14 +141,14 @@ export default {
     },
     createRanch() {
       this.$store.dispatch(`${storeModule}/post`, this.form).then(res => {
-        if (res.status == "created") {
+        if (res.msg == "created") {
           router.push("/");
         }
       });
     },
     addInvite() {
       this.$store.dispatch(`${storeModule}/addInvite`, this.codigo).then(res => {
-        if (res.status == "created") {
+        if (res.msg == "created") {
           router.push("/");
         }
       });

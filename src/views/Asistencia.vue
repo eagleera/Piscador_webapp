@@ -77,6 +77,7 @@
       <button
         class="btn btn-primary mr3"
         @click="addAttendance"
+        id="createAttendanceBtn"
         v-if="getAttendance.length == 0"
       >
         Guardar

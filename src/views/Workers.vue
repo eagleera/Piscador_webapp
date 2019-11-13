@@ -4,27 +4,22 @@
       <h1>
         Trabajadores
         <button
+          id="addWorkerBtn"
           v-if="!toggleWorker"
           class="btn btn-primary fr"
           @click="toggleAddWorker"
         >
-          <font-awesome-icon icon="plus" />
-          Agregar nuevo
+          <font-awesome-icon icon="plus" />Agregar nuevo
         </button>
-        <button
-          v-if="toggleWorker"
-          class="btn btn-danger fr"
-          @click="toggleAddWorker"
-        >
-          <font-awesome-icon icon="times" />
-          Cancelar
+        <button v-if="toggleWorker" class="btn btn-danger fr" @click="toggleAddWorker">
+          <font-awesome-icon icon="times" />Cancelar
         </button>
       </h1>
     </div>
     <div class="row col-12 tc" v-show="loading">
       <EllipsisLoader color="#58b368" class="m-auto" />
     </div>
-    <div class="row mt3" v-if="!loading">
+    <div class="row mt3" id="content" v-if="!loading">
       <div class="col-12 col-sm-6 col-md-4 mb4" v-if="toggleWorker">
         <div class="card h-100">
           <div class="border-bottom card-header">
@@ -46,27 +41,21 @@
                       />
                     </div>
                     <div class="form-group col-12">
-                      <label for="rol">Rol</label>
-                      <select
-                        id="rol"
-                        v-model="rol_id"
-                        class="form-control custom-select"
-                      >
-                        <option :value="null" disabled>
-                          Selecciona uno...
-                        </option>
+                      <label for="nuevorol">Rol</label>
+                      <select id="nuevorol" v-model="rol_id" class="form-control custom-select">
+                        <option :value="null" disabled>Selecciona uno...</option>
                         <option
                           v-for="rol in getRoles"
                           v-bind:key="rol.id"
                           :value="rol.id"
-                        >
-                          {{ rol.nombre }}
-                        </option>
+                        >{{ rol.nombre }}</option>
                       </select>
                     </div>
-                    <button class="btn btn-success col-12" @click="addWorker">
-                      Guardar
-                    </button>
+                    <button
+                      class="btn btn-success col-12"
+                      id="createWorkerBtn"
+                      @click="addWorker"
+                    >Guardar</button>
                   </div>
                 </div>
               </div>
@@ -76,14 +65,12 @@
       </div>
       <div class="col-12 tc" v-if="getWorkers.length == 0 && !toggleWorker">
         <div class="card pt5 pb5 row col-12">
-          <img src="@/assets/empty_state_workers.svg" alt="" />
+          <img src="@/assets/empty_state_workers.svg" alt />
           <h3 class="pa3">Aún no se ha creado ningun trabajador...</h3>
           <button
             class="btn btn-primary col-4 offset-4"
             @click="toggleAddWorker"
-          >
-            Crear mi primer trabajador
-          </button>
+          >Crear mi primer trabajador</button>
         </div>
       </div>
       <div
@@ -94,16 +81,10 @@
         <div class="card h-100">
           <div class="border-bottom card-header">
             <h6 class="mb0 dib">Empleado</h6>
-            <div
-              class="icon-container delete fr"
-              @click="deleteWorker(worker, index)"
-            >
+            <div class="icon-container delete fr" @click="deleteWorker(worker, index)">
               <font-awesome-icon icon="trash"></font-awesome-icon>
             </div>
-            <div
-              class="icon-container edit fr"
-              @click="toggleEditWorker(worker.id)"
-            >
+            <div class="icon-container edit fr" @click="toggleEditWorker(worker.id)">
               <font-awesome-icon icon="marker"></font-awesome-icon>
             </div>
           </div>
@@ -136,21 +117,11 @@
                           v-for="rol in getRoles"
                           v-bind:key="rol.id"
                           :value="rol.id"
-                        >
-                          {{ rol.nombre }}
-                        </option>
+                        >{{ rol.nombre }}</option>
                       </select>
                     </div>
-                    <div
-                      class="form-group col-12 tr"
-                      v-if="toggleEdit === worker.id"
-                    >
-                      <button
-                        @click="editWorker(worker, index)"
-                        class="btn btn-success"
-                      >
-                        Editar
-                      </button>
+                    <div class="form-group col-12 tr" v-if="toggleEdit === worker.id">
+                      <button @click="editWorker(worker, index)" class="btn btn-success">Editar</button>
                     </div>
                   </div>
                 </div>

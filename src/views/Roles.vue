@@ -1,11 +1,12 @@
 <template>
   <d-container fluid class="main-content-container px-4">
     <div class="pa3">
-      <h1>
+      <h1 id="titleRoles">
         Roles
         <button
           v-if="!toggleRol"
           class="btn btn-primary fr"
+          id="addRolBtn"
           @click="toggleAddRol"
         >
           <font-awesome-icon icon="plus" />Agregar nuevo
@@ -26,8 +27,8 @@
       <div class="col-12 col-md-4 mb4" v-if="toggleRol">
         <div class="card h-100">
           <div class="border-bottom card-header">
-            <label for="price">Nombre</label>
-            <input class="form-control" type="text" v-model="nombre" />
+            <label for="nombre">Nombre</label>
+            <input id="nombre" class="form-control" type="text" v-model="nombre" />
           </div>
           <div class="list-group list-group-flush">
             <div class="p3 list-group-item">
@@ -71,7 +72,7 @@
                         </select>
                       </div>
                     </div>
-                    <button class="btn btn-success col-12" @click="addRol">
+                    <button class="btn btn-success col-12" id="createRoleBtn" @click="addRol">
                       Guardar
                     </button>
                   </div>
