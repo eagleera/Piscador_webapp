@@ -10,7 +10,7 @@ module.exports = {
       .setValue("input[type=email]", "prueba@gg.com")
       .setValue("#password", "123456")
       .click("#loginBtn")
-      .waitForElementVisible("#firstTime", 1000)
+      .waitForElementVisible("#firstTime", 3000)
       .assert.urlEquals("http://localhost:8080/firsttime")
       .pause(1000);
   }

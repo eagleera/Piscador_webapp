@@ -25,7 +25,7 @@ module.exports = {
   },
   "step two: create worker": function(browser) {
     browser
-      .waitForElementVisible("#content", 1000)
+      .waitForElementVisible("#content", 3000)
       .click("#addWorkerBtn")
       .setValue("#name", "Trabajador de prueba")
       .click('#nuevorol option[value="3"]')
