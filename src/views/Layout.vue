@@ -44,7 +44,6 @@ export default {
   },
   created() {
     if (this.getRanch) {
-      console.log(this.getRanch);
     } else {
       this.$store.dispatch(`${storeModuleSession}/me`);
     }
