@@ -50,7 +50,6 @@ const actions = {
     );
   },
   update({ commit }, data) {
-    console.log(data);
     return workersApi.update(
       data,
       () => {

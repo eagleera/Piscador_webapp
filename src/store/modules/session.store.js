@@ -37,7 +37,6 @@ const actions = {
           axios.defaults.headers.common = {
             Authorization: `bearer ${result.data.token}`
           };
-          console.log(result.data);
           commit("REGISTER_USER", result.data);
           if (result.data.ranch == false) {
             router.push("/firsttime");
@@ -76,7 +75,6 @@ const actions = {
     }
     sessionApi.getMe(
       result => {
-        console.log(result.data);
         if (result.data.msg == "unauthenticated") {
           localStorage.removeItem("accessToken");
           router.push("/");
@@ -90,10 +88,8 @@ const actions = {
     );
   },
   logout({ commit }) {
-    console.log("suh");
     sessionApi.logout(
       result => {
-        console.log(result.data);
         if (result.data.msg == "logged out") {
           localStorage.removeItem("accessToken");
           commit("LOGOUT");
