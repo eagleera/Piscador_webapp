@@ -23,12 +23,12 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header border-bottom">
-            <h3>Total {{ calculateTotalReal | currency }}</h3>
+            <h3>Total {{ getTotal | currency }}</h3>
           </div>
           <div class="row">
             <div
               class="col-6 col-md-4 tc"
-              v-for="(moneda, index) in calculateTotal"
+              v-for="(moneda, index) in getCambio"
               :key="moneda.id"
             >
               <div class="card pa3 ma3 img-max-height">
@@ -89,10 +89,12 @@
                       <div
                         v-if="payday.date == date.dia"
                         class="status-tbl"
-                        :class="[payday.status ? 'bg-success' : 'bg-danger']"
+                        :class="[
+                          payday.status == '1' ? 'bg-success' : 'bg-danger'
+                        ]"
                       >
                         <font-awesome-icon
-                          v-if="!payday.status"
+                          v-if="payday.status == '0'"
                           icon="times-circle"
                           size="lg"
                         />
@@ -108,7 +110,7 @@
                     {{ round5(attendance.total.toFixed(2)) | currency }}
                   </td>
                   <td
-                    v-for="moneda in calculateBills(attendance.total)"
+                    v-for="moneda in attendance.cambio"
                     :key="moneda.id"
                   >
                     {{ moneda }}
@@ -160,7 +162,6 @@ export default {
       this.enumerateDaysBetweenDates(this.init_date, this.end_date);
       this.$store.dispatch(`${storeModule}/getPayday`, data).then(() => {
         this.loading = false;
-        console.log(this.loading);
       });
     },
     enumerateDaysBetweenDates(startDate, endDate) {
@@ -176,23 +177,6 @@ export default {
         });
       }
     },
-    calculateBills(total) {
-      const monedas = [500, 200, 100, 50, 20, 10, 5];
-      var cambio = [0, 0, 0, 0, 0, 0, 0];
-      for (var i = 0; i < monedas.length; i++) {
-        // Si el importe actual, es superior a la moneda
-        if (total >= monedas[i]) {
-          // obtenemos cantidad de monedas
-          cambio[i] = parseInt(total / monedas[i]);
-          // actualizamos el valor del importe que nos queda por didivir
-          total = (total - cambio[i] * monedas[i]).toFixed(2);
-        } else {
-          total = this.round5(total);
-          cambio[i] = parseInt(total / monedas[i]);
-        }
-      }
-      return cambio;
-    },
     nombreMoneda(index) {
       const monedas = [500, 200, 100, 50, 20, 10, 5];
       return monedas[index];
@@ -202,34 +186,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(storeModule, ["getAttendance", "getPayday"]),
-    calculateTotal() {
-      var total_cambio = [];
-      this.getPayday.forEach(pay => {
-        total_cambio.push(this.calculateBills(pay.total));
-      });
-      let result = total_cambio.reduce(
-        (r, a) => a.map((b, i) => (r[i] || 0) + b),
-        []
-      );
-      return result;
-    },
-    calculateTotalReal() {
-      var total_cambio = [];
-      var total = 0;
-      const monedas = [500, 200, 100, 50, 20, 10, 5];
-      this.getPayday.forEach(pay => {
-        total_cambio.push(this.calculateBills(pay.total));
-      });
-      let result = total_cambio.reduce(
-        (r, a) => a.map((b, i) => (r[i] || 0) + b),
-        []
-      );
-      result.forEach((cantidad, i) => {
-        total += cantidad * monedas[i];
-      });
-      return total;
-    }
+    ...mapGetters(storeModule, ["getAttendance", "getPayday", "getCambio", "getTotal"]),
   },
   mounted() {
     this.obtainAttendance(true);

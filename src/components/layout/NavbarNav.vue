@@ -1,9 +1,8 @@
 <template>
   <d-navbar-nav class="border-left flex-row">
-    <li class="nav-item border-right dropdown notifications">
+    <!-- <li class="nav-item border-right dropdown notifications">
       <a class="nav-link nav-link-icon text-center" v-d-toggle.notifications>
         <div class="nav-link-icon__wrapper">
-          <!-- <i class="material-icons">&#xE7F4;</i> -->
           <font-awesome-icon icon="bell" size="2x" class="mt2" />
           <d-badge pill theme="danger">2</d-badge>
         </div>
@@ -43,7 +42,7 @@
           View all Notifications
         </d-dropdown-item>
       </d-collapse>
-    </li>
+    </li>-->
     <li class="nav-item dropdown">
       <a
         class="nav-link dropdown-toggle text-nowrap px-3"
@@ -54,24 +53,18 @@
           src="@/assets/logo.png"
           alt="User Avatar"
         />
-        <span class="d-none d-md-inline-block">{{ userName }}</span>
+        <span class="d-none d-md-inline-block">
+          {{ getRanch ? getRanch.name : nombre }}
+        </span>
       </a>
       <d-collapse id="user-actions" class="dropdown-menu dropdown-menu-small">
-        <d-dropdown-item>
-          <i class="material-icons">&#xE7FD;</i> Profile
+        <d-dropdown-item href="changeRanch">
+          <font-awesome-icon icon="exchange-alt" />
+          Cambiar rancho
         </d-dropdown-item>
-        <d-dropdown-item>
-          <i class="material-icons">&#xE8B8;</i> Edit Profile
-        </d-dropdown-item>
-        <d-dropdown-item>
-          <i class="material-icons">&#xE2C7;</i> Files
-        </d-dropdown-item>
-        <d-dropdown-item>
-          <i class="material-icons">&#xE896;</i> Transactions
-        </d-dropdown-item>
-        <d-dropdown-divider />
-        <d-dropdown-item href="#" class="text-danger">
-          <i class="material-icons text-danger">&#xE879;</i> Logout
+        <d-dropdown-item href="logout">
+          <font-awesome-icon icon="sign-out-alt" />
+          Logout
         </d-dropdown-item>
       </d-collapse>
     </li>
@@ -82,13 +75,25 @@
 .nav-link:hover {
   cursor: pointer;
 }
+.main-navbar .navbar .nav-link {
+  min-width: 10rem !important;
+}
 </style>
 
 <script>
+let storeModuleRanch = "ranch";
+
+import { mapGetters } from "vuex";
+
 export default {
   name: "navBar",
-  props: {
-    userName: String
+  data() {
+    return {
+      nombre: ""
+    };
+  },
+  computed: {
+    ...mapGetters(storeModuleRanch, ["getRanch"])
   }
 };
 </script>

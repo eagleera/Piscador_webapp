@@ -34,14 +34,14 @@
     <div class="nav-wrapper">
       <d-nav class="flex-column">
         <li class="nav-item" @click="handleToggleSidebar">
-          <d-link class="nav-link" to="/workers">
+          <d-link id="goWorkers" class="nav-link" to="/workers">
             <font-awesome-icon icon="users" class="mr2" />
             <span>Trabajadores</span>
             <div class="item-icon-wrapper" />
           </d-link>
         </li>
         <li class="nav-item" @click="handleToggleSidebar">
-          <d-link class="nav-link" to="/roles">
+          <d-link id="goRoles" class="nav-link" to="/roles">
             <font-awesome-icon icon="chess" class="mr2" />
             <span>Roles</span>
             <div class="item-icon-wrapper" />
@@ -104,10 +104,10 @@ export default {
     display: block;
   }
 }
-.max-h-100{
+.max-h-100 {
   max-height: 100%;
 }
-.nav-link{
+.nav-link {
   cursor: pointer;
 }
 .v-btm-txt {

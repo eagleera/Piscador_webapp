@@ -33,7 +33,7 @@
                 <tr>
                   <th scope="col" class="border-0" width="100">#</th>
                   <th scope="col" class="border-0">Nombre</th>
-                  <th scope="col" class="border-0 tl" width="150">Estado</th>
+                  <th scope="col" class="border-0 tc" width="150">Estado</th>
                 </tr>
               </thead>
               <tbody>
@@ -41,11 +41,10 @@
                   <td>{{ index + 1 }}</td>
                   <td>{{ worker.nombre }}</td>
                   <td>
-                    <d-checkbox
-                      toggle
-                      class="custom-toggle-sm"
-                      checked
+                    <d-form-checkbox
+                      inline
                       v-model="worker.attendance"
+                      checked
                     />
                   </td>
                 </tr>
@@ -56,20 +55,16 @@
                 <tr>
                   <th scope="col" class="border-0" width="100">#</th>
                   <th scope="col" class="border-0">Nombre</th>
-                  <th scope="col" class="border-0 tl" width="150">Estado</th>
+                  <th scope="col" class="border-0" width="150">Estado</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(worker, index) in getAttendance" :key="worker.id">
                   <td>{{ index }}</td>
-                  <td>{{ worker.worker.nombre }}</td>
+                  <td>{{ worker.worker ? worker.worker.nombre : "" }}</td>
                   <td>
-                    <d-checkbox
-                      toggle
-                      class="custom-toggle-sm"
-                      checked
-                      v-model="worker.status"
-                    />
+                    <d-form-checkbox inline v-model="worker.status" checked>
+                    </d-form-checkbox>
                   </td>
                 </tr>
               </tbody>
@@ -82,6 +77,7 @@
       <button
         class="btn btn-primary mr3"
         @click="addAttendance"
+        id="createAttendanceBtn"
         v-if="getAttendance.length == 0"
       >
         Guardar
@@ -117,12 +113,27 @@ export default {
         date: moment(this.date).format("YYYY-MM-DD"),
         workers: this.getWorkers
       };
-      this.$store.dispatch(`${storeModuleAttendance}/post`, data);
+      this.$store.dispatch(`${storeModuleAttendance}/post`, data).then(() => {
+        this.obtainAttendance();
+        this.$toasted.show("¡La asistencia del día ha sido registrada!", {
+          type: "success",
+          icon: "thumbs-up",
+          action: {
+            text: "Okay",
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0);
+            }
+          }
+        });
+      });
     },
     obtainAttendance() {
       let date = moment(this.date).format("YYYY-MM-DD");
       this.loading = true;
       this.$store.dispatch(`${storeModuleAttendance}/get`, date).then(() => {
+        this.getWorkers.forEach(worker => {
+          worker.attendance = true;
+        });
         this.loading = false;
       });
     }
@@ -137,3 +148,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.mt--20 {
+  margin-top: -20px;
+}
+</style>

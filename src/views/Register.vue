@@ -5,12 +5,12 @@
         <div class="card">
           <div class="card-header border-bottom">
             <div class="img-container col-12 tc">
-              <img class="m-auto" src="@/assets/logo_black.png" alt="">
+              <img class="m-auto" src="@/assets/logo_black.png" alt="" />
             </div>
           </div>
           <div class="card-body pt2">
-            <h1 class="mb0 mt0">Registrarme</h1>
-            <div class="form-group">
+            <h4 class="mb0 mt0" id="title">Registrarme</h4>
+            <div class="form-group mt3">
               <label for="email">Email</label>
               <input
                 id="email"
@@ -49,9 +49,12 @@
               />
             </div>
             <div class="col-12 pa0">
-              <button class="btn btn-primary col-12" @click="register">
+              <button id="registerBtn" class="btn btn-primary col-12" @click="register">
                 Registrarme
               </button>
+            </div>
+            <div class="col-12 tc mt3">
+              <a href="/">¿Ya tienes una cuenta? Inicia sesión</a>
             </div>
           </div>
         </div>
@@ -75,13 +78,12 @@ export default {
   },
   methods: {
     register() {
-      this.$store
-        .dispatch(`${storeModule}/tryRegister`, {
-          email: this.email,
-          name: this.name,
-          password: this.password,
-          password_confirmation: this.password_confirmation
-        })
+      this.$store.dispatch(`${storeModule}/tryRegister`, {
+        email: this.email,
+        name: this.name,
+        password: this.password,
+        password_confirmation: this.password_confirmation
+      });
     }
   }
 };

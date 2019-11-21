@@ -2,11 +2,15 @@ import attendanceApi from "@/api/attendance.api";
 
 const state = {
   attendance: [],
-  payday: []
+  payday: [],
+  cambio: [],
+  total: 0
 };
 const getters = {
   getAttendance: state => state.attendance,
-  getPayday: state => state.payday
+  getPayday: state => state.payday,
+  getCambio: state => state.cambio,
+  getTotal: state => state.total
 };
 const mutations = {
   SET_ATTENDANCE(state, attendance) {
@@ -14,6 +18,12 @@ const mutations = {
   },
   SET_PAYDAY(state, attendance) {
     state.payday = attendance;
+  },
+  SET_CAMBIO(state, cambio) {
+    state.cambio = cambio;
+  },
+  SET_TOTAL(state, total) {
+    state.total = total;
   }
 };
 const actions = {
@@ -33,41 +43,9 @@ const actions = {
     return attendanceApi.getPayday(
       data,
       result => {
-        var attendance = [];
-        let workers = [];
-        result.data.forEach(att => {
-          if (!workers.includes(att.worker_id)) {
-            var info = {
-              worker_id: att.worker_id,
-              worker: att.worker,
-              role: att.worker.role,
-              total: att.status ? parseFloat(att.worker.role.cantidad) : 0,
-              payday: [
-                {
-                  status: att.status,
-                  date: att.attendance_day
-                }
-              ]
-            };
-            attendance.push(info);
-            workers.push(att.worker_id);
-          } else {
-            attendance.forEach(attend => {
-              if (attend.worker_id == att.worker_id) {
-                if (att.status) {
-                  attend.total =
-                    parseFloat(att.worker.role.cantidad) +
-                    parseFloat(attend.total);
-                }
-                attend.payday.push({
-                  status: att.status,
-                  date: att.attendance_day
-                });
-              }
-            });
-          }
-        });
-        commit("SET_PAYDAY", attendance);
+        commit("SET_PAYDAY", result.data.attendance);
+        commit("SET_CAMBIO", result.data.cambio);
+        commit("SET_TOTAL", result.data.total);
         return true;
       },
       error => {
@@ -76,10 +54,11 @@ const actions = {
     );
   },
   post({ commit }, data) {
-    attendanceApi.post(
+    return attendanceApi.post(
       data,
       () => {
         commit("SET_ATTENDANCE", data);
+        return true;
       },
       error => {
         return error;
