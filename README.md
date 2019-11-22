@@ -1,14 +1,16 @@
 # piscador_webapp
 
-## Project setup
+## Para instalar el proyecto
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Para correrlo
 ```
 npm run serve
 ```
+
+### Posiblemente sea necesario en config.js poner la localizacion donde corre la API
 
 ### Compiles and minifies for production
 ```
@@ -24,6 +26,3 @@ npm run test
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
