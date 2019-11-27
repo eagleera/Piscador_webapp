@@ -31,13 +31,15 @@ const actions = {
     return sessionApi.tryLogin(
       data,
       result => {
-        if (result.data) {
-          localStorage.setItem("accessToken", result.data.token);
-          commit("LOG_USER", result.data.token);
+        console.log(result.data)
+        if (result.data.status == true) {
+          console.log(result.data.response["session-token"]);
+          localStorage.setItem("accessToken", result.data.response["session-token"]);
+          commit("LOG_USER", result.data.response["session-token"]);
           axios.defaults.headers.common = {
-            Authorization: `bearer ${result.data.token}`
+            Authorization: `bearer ${result.data.response["session-token"]}`
           };
-          commit("REGISTER_USER", result.data);
+          commit("REGISTER_USER", result.data.response);
           if (result.data.ranch == false) {
             router.push("/firsttime");
           } else {
@@ -56,7 +58,7 @@ const actions = {
     sessionApi.tryRegister(
       data,
       result => {
-        commit("REGISTER_USER", result.data.user);
+        commit("REGISTER_USER", result.data);
         router.push("/");
       },
       error => {
@@ -79,8 +81,8 @@ const actions = {
           localStorage.removeItem("accessToken");
           router.push("/");
         }
-        commit("REGISTER_USER", result.data.user);
-        commit("ranch/INIT_RANCH", result.data.user.ranch, { root: true });
+        commit("REGISTER_USER", result.data.response);
+        // commit("ranch/INIT_RANCH", result.data.user.ranch, { root: true });
       },
       error => {
         return error;

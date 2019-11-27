@@ -5,7 +5,7 @@
         <div class="card">
           <div class="card-header border-bottom">
             <div class="img-container col-12 tc">
-              <img class="m-auto" src="@/assets/logo_black.png" alt="" />
+              <img class="m-auto" src="@/assets/logo_black.png" alt />
             </div>
           </div>
           <div class="card-body pt2">
@@ -31,13 +31,18 @@
               />
             </div>
             <div class="form-group">
-              <label for="password">Contraseña</label>
+              <label for="nombre">Apellido</label>
               <input
-                id="password"
-                type="password"
+                id="apellido"
+                type="text"
+                v-model="lastname"
+                placeholder="Terrazas"
                 class="form-control"
-                v-model="password"
               />
+            </div>
+            <div class="form-group">
+              <label for="password">Contraseña</label>
+              <input id="password" type="password" class="form-control" v-model="password" />
             </div>
             <div class="form-group">
               <label for="confirm_password">Confirmar contraseña</label>
@@ -49,9 +54,7 @@
               />
             </div>
             <div class="col-12 pa0">
-              <button id="registerBtn" class="btn btn-primary col-12" @click="register">
-                Registrarme
-              </button>
+              <button id="registerBtn" class="btn btn-primary col-12" @click="register">Registrarme</button>
             </div>
             <div class="col-12 tc mt3">
               <a href="/">¿Ya tienes una cuenta? Inicia sesión</a>
@@ -72,18 +75,25 @@ export default {
     return {
       email: "",
       name: "",
+      lastname: "",
       password: "",
-      password_confirmation: ""
+      password_confirmation: "",
+      role: "Admin"
     };
   },
   methods: {
     register() {
-      this.$store.dispatch(`${storeModule}/tryRegister`, {
-        email: this.email,
-        name: this.name,
-        password: this.password,
-        password_confirmation: this.password_confirmation
-      });
+      if (this.password == this.password_confirmation) {
+        this.$store.dispatch(`${storeModule}/tryRegister`, {
+          email: this.email,
+          name: this.name,
+          lastname: this.lastname,
+          password: this.password,
+          role: this.role
+        });
+      }else{
+        console.log("nah")
+      }
     }
   }
 };
