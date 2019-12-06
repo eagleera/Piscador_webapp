@@ -39,7 +39,7 @@
               <tbody>
                 <tr v-for="(worker, index) in getWorkers" :key="worker.id">
                   <td>{{ index + 1 }}</td>
-                  <td>{{ worker.nombre }}</td>
+                  <td>{{ worker.worker.name }} {{ worker.worker.lastname }}</td>
                   <td>
                     <d-form-checkbox
                       inline

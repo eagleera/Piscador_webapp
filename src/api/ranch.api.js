@@ -8,6 +8,18 @@ export default {
       .then(onSuccess)
       .catch(onError);
   },
+  postCrop(data, onSuccess, onError) {
+    return axios
+      .post(`${config.host}/api/crop`, data)
+      .then(onSuccess)
+      .catch(onError);
+  },
+  getCrops(onSuccess, onError) {
+    return axios
+      .get(`${config.host}/api/crop`)
+      .then(onSuccess)
+      .catch(onError);
+  },
   addInvite(codigo, onSuccess, onError) {
     return axios
       .post(`${config.host}/ranch/add-invite`, codigo)
@@ -17,6 +29,12 @@ export default {
   sizeTypes(onSuccess, onError) {
     return axios
       .get(`${config.host}/api/size_type`)
+      .then(onSuccess)
+      .catch(onError);
+  },
+  cropTypes(onSuccess, onError) {
+    return axios
+      .get(`${config.host}/api/crop_type`)
       .then(onSuccess)
       .catch(onError);
   }

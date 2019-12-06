@@ -1,7 +1,7 @@
 <template>
   <d-container fluid class="main-content-container px-4">
     <div class="pa3">
-      <h1>
+      <h1 v-if="getUser">
         Trabajadores
         <button
           id="addWorkerBtn"
@@ -128,11 +128,7 @@
                         :disabled="toggleEdit === worker.id ? false : true"
                       >
                         <option disabled selected>Elegir...</option>
-                        <option
-                          v-for="rol in getRoles"
-                          :key="rol.id"
-                          :value="rol.id"
-                        >{{ rol.name }}</option>
+                        <option v-for="rol in getRoles" :key="rol.id" :value="rol.id">{{ rol.name }}</option>
                       </select>
                     </div>
                     <div class="form-group col-12 tr" v-if="toggleEdit === worker.id">
@@ -186,9 +182,11 @@ export default {
     },
     obtainWorkers() {
       this.loading = true;
-      this.$store.dispatch(`${storeModuleWorkers}/get`).then(() => {
-        this.loading = false;
-      });
+      this.$store
+        .dispatch(`${storeModuleWorkers}/get`, this.getUser.ranch.id)
+        .then(() => {
+          this.loading = false;
+        });
     },
     addWorker() {
       const data = {
@@ -257,9 +255,11 @@ export default {
     ...mapGetters(storeModuleWorkers, ["getWorkers"]),
     ...mapGetters(storeModuleSession, ["getUser"])
   },
-  mounted() {
-    this.obtainRoles();
-    this.obtainWorkers();
+  created() {
+    if (this.getUser) {
+      this.obtainRoles();
+      this.obtainWorkers();
+    }
   }
 };
 </script>

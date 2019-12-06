@@ -2,13 +2,9 @@ import config from "@/../config";
 import axios from "axios";
 
 export default {
-  get(onSuccess, onError) {
+  get(data, onSuccess, onError) {
     return axios
-      .get(`${config.host}/api/workers`, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("accessToken")
-        }
-      })
+      .get(`${config.host}/api/workers/${data}`)
       .then(onSuccess)
       .catch(onError);
   },

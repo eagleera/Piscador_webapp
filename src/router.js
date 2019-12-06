@@ -9,6 +9,7 @@ import FirstTime from "./views/FirstTime.vue";
 import Login from "./views/Login.vue";
 import Logout from "./views/Logout.vue";
 import Paga from "./views/Paga.vue";
+import Ranch from "./views/Ranch.vue";
 import Register from "./views/Register.vue";
 import Roles from "./views/Roles.vue";
 import Workers from "./views/Workers.vue";
@@ -43,6 +44,10 @@ const router = new Router({
         {
           path: "/payday",
           component: Paga
+        },
+        {
+          path: "/ranch",
+          component: Ranch
         }
       ]
     },

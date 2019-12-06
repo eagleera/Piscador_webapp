@@ -23,7 +23,8 @@ import {
   faCheckCircle,
   faSignOutAlt,
   faTerminal,
-  faExchangeAlt
+  faExchangeAlt,
+  faHatCowboySide
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Vue2Filters from "vue2-filters";
@@ -54,7 +55,8 @@ library.add(
   faCheckCircle,
   faSignOutAlt,
   faTerminal,
-  faExchangeAlt
+  faExchangeAlt,
+  faHatCowboySide
 );
 Vue.config.productionTip = false;
 Vue.prototype.$eventHub = new Vue();

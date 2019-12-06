@@ -37,6 +37,16 @@
                           type="text"
                           placeholder="$0.00"
                           class="form-control"
+                          v-if="rol.payment"
+                          v-model="rol.payment.wage"
+                          :disabled="toggleEdit === rol.id ? false : true"
+                        />
+                        <input
+                          id="price"
+                          type="text"
+                          placeholder="$0.00"
+                          class="form-control"
+                          v-if="!rol.payment"
                           v-model="rol.cantidad"
                           :disabled="toggleEdit === rol.id ? false : true"
                         />
@@ -98,7 +108,9 @@ export default {
         role: role,
         ranch_id: this.getUser.ranch.id
       };
-      console.log(data);
+      if(role.payment){
+        data.role.cantidad = role.payment.wage
+      }
       this.$store.dispatch(`${storeModule}/update`, data).then(() => {
         this.$toasted.show("El rol ha sido actualizado", {
           type: "success",

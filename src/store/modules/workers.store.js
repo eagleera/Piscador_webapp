@@ -23,6 +23,7 @@ const mutations = {
 const actions = {
   get({ commit }, data) {
     return workersApi.get(
+      data,
       result => {
         if (data) {
           result.data.forEach(result => {
