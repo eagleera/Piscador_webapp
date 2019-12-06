@@ -15,11 +15,11 @@
             <div class="col-7 bl">
               <h5 class="tc mt4">
                 Para iniciar sesión es necesario crear un rancho, a continuación
-                puedes agregar uno al que hayas sido invitado o crear el tuyo.
+                puedes crear el tuyo.
               </h5>
               <div class="row align-items-start mt5">
                 <div class="col-4 offset-2 tc">
-                  <button
+                  <!-- <button
                     class="btn"
                     :class="{
                       'btn-primary': type == 'invitation',
@@ -28,9 +28,9 @@
                     @click="chooseType('invitation')"
                   >
                     Tengo un código de invitación
-                  </button>
+                  </button>-->
                 </div>
-                <div class="col-4 tc">
+                <div class="col-12 tc">
                   <button
                     id="ChooseNewRanchBtn"
                     class="btn"
@@ -39,9 +39,7 @@
                       'btn-outline-success': type != 'new'
                     }"
                     @click="chooseType('new')"
-                  >
-                    Quiero crear mi primer rancho
-                  </button>
+                  >Quiero crear mi primer rancho</button>
                 </div>
                 <div class="col-10 offset-1" v-if="type === 'invitation'">
                   <div class="form-group mt4">
@@ -59,9 +57,7 @@
                       />
                     </d-input-group>
                     <div class="col-12 pa0 tr">
-                      <d-button class="btn btn-primary" block-level @click="addInvite">
-                        Aceptar
-                      </d-button>
+                      <d-button class="btn btn-primary" block-level @click="addInvite">Aceptar</d-button>
                     </div>
                   </div>
                 </div>
@@ -88,14 +84,37 @@
                     />
                   </div>
                   <div class="form-group mt3">
-                    <label for="size">Número de hectareas</label>
+                    <label for="address">Codigo Postal</label>
                     <input
-                      id="size"
+                      id="zipcode"
                       type="number"
                       class="form-control"
-                      v-model="form.size"
-                      placeholder="9"
+                      v-model="form.zipcode"
+                      placeholder="33310"
                     />
+                  </div>
+                  <div class="form-group mt3 row">
+                    <label class="col-12" for="size">Tamaño de tu rancho</label>
+                    <div class="col-8">
+                      <input
+                        id="size"
+                        type="number"
+                        class="form-control"
+                        v-model="form.size"
+                        placeholder="9"
+                      />
+                    </div>
+                    <div class="col-4">
+                      <label for></label>
+                      <d-form-select v-model="form.sizetype" class="mb-3">
+                        <option :value="null" selected>Selecciona una opción</option>
+                        <option
+                          :value="size.id"
+                          :key="size.id"
+                          v-for="size in getSizes"
+                        >{{size.name}}</option>
+                      </d-form-select>
+                    </div>
                   </div>
                   <div class="col-12 pa0 tr">
                     <d-button
@@ -103,9 +122,7 @@
                       id="CreateRanchBtn"
                       block-level
                       @click="createRanch"
-                    >
-                      Crear
-                    </d-button>
+                    >Crear</d-button>
                   </div>
                 </div>
               </div>
@@ -119,18 +136,23 @@
 
 <script>
 let storeModule = "ranch";
+let storeModuleSession = "session";
 import router from "@/router";
+import { mapGetters } from "vuex";
 
 export default {
   name: "FirstTime",
   data() {
     return {
+      sizeSelected: null,
       type: null,
       form: {
         name: null,
         address: null,
         size: null,
-        firsttime: true
+        sizetype: null,
+        firsttime: true,
+        zipcode: null
       },
       codigo: null
     };
@@ -139,20 +161,23 @@ export default {
     chooseType(tipo) {
       this.type = tipo;
     },
+    getSizeTypes() {
+      this.$store.dispatch(`${storeModule}/sizeTypes`);
+    },
     createRanch() {
       this.$store.dispatch(`${storeModule}/post`, this.form).then(res => {
-        if (res.msg == "created") {
-          router.push("/");
-        }
-      });
-    },
-    addInvite() {
-      this.$store.dispatch(`${storeModule}/addInvite`, this.codigo).then(res => {
-        if (res.msg == "created") {
+        if (res.status == 200) {
           router.push("/");
         }
       });
     }
+  },
+  computed: {
+    ...mapGetters(storeModule, ["getSizes"])
+  },
+  created() {
+    this.getSizeTypes();
+    this.$store.dispatch(`${storeModuleSession}/me`);
   }
 };
 </script>

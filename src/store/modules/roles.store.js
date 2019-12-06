@@ -37,45 +37,12 @@ const actions = {
       }
     );
   },
-  getTypes({ commit }) {
-    rolesApi.getTypes(
-      result => {
-        commit("INIT_TYPES", result.data);
-      },
-      error => {
-        return error;
-      }
-    );
-  },
-  post({ commit }, data) {
-    return rolesApi.post(
-      data,
-      () => {
-        commit("ADD_ROLE", data);
-        return true;
-      },
-      error => {
-        return error;
-      }
-    );
-  },
   update({ commit }, data) {
+    console.log(data);
     return rolesApi.update(
       data,
       () => {
         commit("EDIT_ROLE", data);
-        return true;
-      },
-      error => {
-        return error;
-      }
-    );
-  },
-  delete({ commit }, data) {
-    return rolesApi.delete(
-      data,
-      () => {
-        commit("DELETE_ROLE", data);
         return true;
       },
       error => {

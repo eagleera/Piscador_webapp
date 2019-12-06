@@ -38,11 +38,18 @@ const actions = {
     );
   },
   post({ commit }, data) {
+    console.log("si entra aki");
     return workersApi.post(
       data,
       result => {
-        commit("ADD_WORKER", result.data.worker);
-        return true;
+        let commitData = {
+          worker: result.data,
+          role: {
+            id: data.rol_id
+          }
+        }
+        commit("ADD_WORKER", commitData);
+        return result;
       },
       error => {
         return error;

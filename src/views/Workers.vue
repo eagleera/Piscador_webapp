@@ -35,7 +35,17 @@
                       <input
                         id="name"
                         type="text"
-                        v-model="nombre"
+                        v-model="name"
+                        placeholder="Daniel"
+                        class="form-control"
+                      />
+                    </div>
+                    <div class="form-group col-12">
+                      <label for="name">Apellido</label>
+                      <input
+                        id="name"
+                        type="text"
+                        v-model="lastname"
                         placeholder="Daniel"
                         class="form-control"
                       />
@@ -48,7 +58,7 @@
                           v-for="rol in getRoles"
                           v-bind:key="rol.id"
                           :value="rol.id"
-                        >{{ rol.nombre }}</option>
+                        >{{ rol.name }}</option>
                       </select>
                     </div>
                     <button
@@ -81,12 +91,6 @@
         <div class="card h-100">
           <div class="border-bottom card-header">
             <h6 class="mb0 dib">Empleado</h6>
-            <div class="icon-container delete fr" @click="deleteWorker(worker, index)">
-              <font-awesome-icon icon="trash"></font-awesome-icon>
-            </div>
-            <div class="icon-container edit fr" @click="toggleEditWorker(worker.id)">
-              <font-awesome-icon icon="marker"></font-awesome-icon>
-            </div>
           </div>
           <div class="list-group list-group-flush">
             <div class="p3 list-group-item">
@@ -96,9 +100,20 @@
                     <div class="form-group col-12">
                       <label for="name">Nombre</label>
                       <input
-                        v-model="worker.nombre"
+                        v-model="worker.worker.name"
                         id="name"
                         type="text"
+                        placeholder="Daniel"
+                        class="form-control"
+                        :disabled="toggleEdit === worker.id ? false : true"
+                      />
+                    </div>
+                    <div class="form-group col-12">
+                      <label for="name">Apellido</label>
+                      <input
+                        id="name"
+                        type="text"
+                        v-model="worker.worker.lastname"
                         placeholder="Daniel"
                         class="form-control"
                         :disabled="toggleEdit === worker.id ? false : true"
@@ -109,15 +124,15 @@
                       <select
                         id="rol"
                         class="form-control custom-select"
-                        v-model="worker.rol_id"
+                        v-model="worker.role.id"
                         :disabled="toggleEdit === worker.id ? false : true"
                       >
                         <option disabled selected>Elegir...</option>
                         <option
                           v-for="rol in getRoles"
-                          v-bind:key="rol.id"
+                          :key="rol.id"
                           :value="rol.id"
-                        >{{ rol.nombre }}</option>
+                        >{{ rol.name }}</option>
                       </select>
                     </div>
                     <div class="form-group col-12 tr" v-if="toggleEdit === worker.id">
@@ -138,13 +153,15 @@
 import { mapGetters } from "vuex";
 let storeModuleWorkers = "workers";
 let storeModuleRoles = "roles";
+let storeModuleSession = "session";
 
 export default {
   name: "Workers",
   data() {
     return {
       toggleWorker: false,
-      nombre: "",
+      name: "",
+      lastname: "",
       rol_id: null,
       loading: false,
       toggleEdit: null
@@ -175,8 +192,10 @@ export default {
     },
     addWorker() {
       const data = {
-        nombre: this.nombre,
-        rol_id: this.rol_id
+        name: this.name,
+        lastname: this.lastname,
+        rol_id: this.rol_id,
+        ranch_id: this.getUser.ranch.id
       };
       this.$store.dispatch(`${storeModuleWorkers}/post`, data).then(() => {
         this.toggleWorker = false;
@@ -235,7 +254,8 @@ export default {
   },
   computed: {
     ...mapGetters(storeModuleRoles, ["getRoles"]),
-    ...mapGetters(storeModuleWorkers, ["getWorkers"])
+    ...mapGetters(storeModuleWorkers, ["getWorkers"]),
+    ...mapGetters(storeModuleSession, ["getUser"])
   },
   mounted() {
     this.obtainRoles();

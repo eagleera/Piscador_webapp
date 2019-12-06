@@ -72,7 +72,8 @@ export default {
         })
         .then(res => {
           if (res.response) {
-            if (res.response.status == 401) {
+            console.log();
+            if (!res.response.data.response.status) {
               this.error = true;
             }
           }

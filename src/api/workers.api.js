@@ -4,7 +4,7 @@ import axios from "axios";
 export default {
   get(onSuccess, onError) {
     return axios
-      .get(`${config.host}/workers`, {
+      .get(`${config.host}/api/workers`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("accessToken")
         }
@@ -14,11 +14,7 @@ export default {
   },
   post(data, onSuccess, onError) {
     return axios
-      .post(`${config.host}/worker`, data, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("accessToken")
-        }
-      })
+      .post(`${config.host}/api/worker`, data)
       .then(onSuccess)
       .catch(onError);
   },

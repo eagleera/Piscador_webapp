@@ -58,10 +58,6 @@
         </span>
       </a>
       <d-collapse id="user-actions" class="dropdown-menu dropdown-menu-small">
-        <d-dropdown-item href="changeRanch">
-          <font-awesome-icon icon="exchange-alt" />
-          Cambiar rancho
-        </d-dropdown-item>
         <d-dropdown-item href="logout">
           <font-awesome-icon icon="sign-out-alt" />
           Logout

@@ -31,19 +31,24 @@ const actions = {
     return sessionApi.tryLogin(
       data,
       result => {
-        console.log(result.data)
+        console.log(result.data);
         if (result.data.status == true) {
           console.log(result.data.response["session-token"]);
-          localStorage.setItem("accessToken", result.data.response["session-token"]);
+          localStorage.setItem(
+            "accessToken",
+            result.data.response["session-token"]
+          );
           commit("LOG_USER", result.data.response["session-token"]);
           axios.defaults.headers.common = {
             Authorization: `bearer ${result.data.response["session-token"]}`
           };
           commit("REGISTER_USER", result.data.response);
-          if (result.data.ranch == false) {
+          if (result.data.response.ranch == null) {
             router.push("/firsttime");
           } else {
-            commit("ranch/INIT_RANCH", result.data.ranch, { root: true });
+            commit("ranch/INIT_RANCH", result.data.response.ranch, {
+              root: true
+            });
             router.push("/assistance");
           }
           return true;
@@ -90,18 +95,9 @@ const actions = {
     );
   },
   logout({ commit }) {
-    sessionApi.logout(
-      result => {
-        if (result.data.msg == "logged out") {
-          localStorage.removeItem("accessToken");
-          commit("LOGOUT");
-          router.push("/");
-        }
-      },
-      error => {
-        return error;
-      }
-    );
+    localStorage.removeItem("accessToken");
+    router.push("/");
+    commit("LOGOUT");
   }
 };
 
