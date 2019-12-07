@@ -68,13 +68,13 @@
             <div class="item-icon-wrapper" />
           </d-link>
         </li>
-        <!-- <li class="nav-item" @click="handleToggleSidebar">
+        <li class="nav-item" @click="handleToggleSidebar">
           <d-link class="nav-link" to="/diary">
             <font-awesome-icon icon="book" class="mr2" />
-            <span>Diario</span>
+            <span>Cosecha</span>
             <div class="item-icon-wrapper" />
           </d-link>
-        </li> -->
+        </li>
       </d-nav>
     </div>
   </aside>

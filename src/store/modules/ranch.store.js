@@ -4,13 +4,15 @@ const state = {
   ranch: null,
   sizes: null,
   croptypes: null,
-  crops: null
+  crops: null,
+  harvest: null
 };
 const getters = {
   getRanch: state => state.ranch,
   getSizes: state => state.sizes,
   getCropTypes: state => state.croptypes,
-  getCrops: state => state.crops
+  getCrops: state => state.crops,
+  getHarvest: state => state.harvest
 };
 const mutations = {
   INIT_RANCH(state, ranch) {
@@ -24,6 +26,9 @@ const mutations = {
   },
   INIT_CROPS(state, crops) {
     state.crops = crops;
+  },
+  INIT_HARVEST(state, harvest) {
+    state.harvest = harvest;
   }
 };
 const actions = {
@@ -33,6 +38,18 @@ const actions = {
       res => {
         commit("INIT_RANCH", res.data.ranch);
         commit("session/REGISTER_USER", res.data.user, { root: true });
+        return res;
+      },
+      error => {
+        return error;
+      }
+    );
+  },
+  addHarvest({ commit }, data) {
+    return ranchApi.postHarvest(
+      data,
+      res => {
+        console.log(res);
         return res;
       },
       error => {
@@ -56,6 +73,18 @@ const actions = {
     return ranchApi.getCrops(
       res => {
         commit("INIT_CROPS", res.data);
+        console.log(res);
+        return res;
+      },
+      error => {
+        return error;
+      }
+    );
+  },
+  getHarvest({ commit }) {
+    return ranchApi.getHarvest(
+      res => {
+        commit("INIT_HARVEST", res.data);
         console.log(res);
         return res;
       },

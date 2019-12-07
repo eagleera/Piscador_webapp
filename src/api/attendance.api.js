@@ -12,12 +12,18 @@ export default {
       .then(onSuccess)
       .catch(onError);
   },
+  getDayTypes(onSuccess, onError) {
+    return axios
+      .get(`${config.host}/api/daytypes`)
+      .then(onSuccess)
+      .catch(onError);
+  },
   getPayday(data, onSuccess, onError) {
     return axios
       .get(
         `${config.host}/attendance/payday`,
         {
-        params: {
+          params: {
             init_date: data.init_date,
             end_date: data.end_date
           }
@@ -33,11 +39,7 @@ export default {
   },
   post(data, onSuccess, onError) {
     return axios
-      .post(`${config.host}/attendance`, data, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("accessToken")
-        }
-      })
+      .post(`${config.host}/api/attendance`, data)
       .then(onSuccess)
       .catch(onError);
   }

@@ -2,9 +2,9 @@ import config from "@/../config";
 import axios from "axios";
 
 export default {
-  get(data, onSuccess, onError) {
+  get(onSuccess, onError) {
     return axios
-      .get(`${config.host}/api/workers/${data}`)
+      .get(`${config.host}/api/workers`)
       .then(onSuccess)
       .catch(onError);
   },

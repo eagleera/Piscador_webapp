@@ -182,11 +182,9 @@ export default {
     },
     obtainWorkers() {
       this.loading = true;
-      this.$store
-        .dispatch(`${storeModuleWorkers}/get`, this.getUser.ranch.id)
-        .then(() => {
-          this.loading = false;
-        });
+      this.$store.dispatch(`${storeModuleWorkers}/get`).then(() => {
+        this.loading = false;
+      });
     },
     addWorker() {
       const data = {
@@ -256,10 +254,8 @@ export default {
     ...mapGetters(storeModuleSession, ["getUser"])
   },
   created() {
-    if (this.getUser) {
-      this.obtainRoles();
-      this.obtainWorkers();
-    }
+    this.obtainRoles();
+    this.obtainWorkers();
   }
 };
 </script>

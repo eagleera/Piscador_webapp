@@ -1,16 +1,7 @@
 <template>
   <d-container fluid class="main-content-container px-4">
     <div class="pa3">
-      <h1 class="dib">Diario</h1>
-      <d-input-group
-        size="sm"
-        class="date-range justify-content-left w-auto-ns inline-flex ml4"
-      >
-        <d-datepicker placeholder="Start Date" typeable small />
-        <d-input-group-text slot="append">
-          <font-awesome-icon icon="search" />
-        </d-input-group-text>
-      </d-input-group>
+      <h1 class="dib">Registro de Cosecha</h1>
     </div>
     <div class="row">
       <div class="offset-2 col-8">
@@ -19,24 +10,32 @@
             <h6 class="mb0">Nuevo registro</h6>
           </div>
           <div class="pa3">
-            <form>
-              <div class="form-group">
-                <label for="toneladas">Toneladas</label>
-                <input
-                  id="toneladas"
-                  type="number"
-                  placeholder="32"
-                  class="form-control"
-                />
-              </div>
-              <div class="form-group">
-                <label for="toneladas">Notas</label>
-                <textarea class="form-control" />
-              </div>
-              <div class="form-group tc">
-                <button class="btn btn-primary">Guardar</button>
-              </div>
-            </form>
+            <div class="form-group">
+              <label for="cantidad">Cantidad</label>
+              <input
+                id="cantidad"
+                type="number"
+                v-model="amount"
+                placeholder="32"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group">
+              <label for="fecha">Fecha</label>
+              <d-datepicker id="fecha" v-model="date" typeable />
+            </div>
+            <div class="form-group">
+              <label for="cultivo">Cultivo</label>
+              <d-form-select v-model="crop" class="mb-3">
+                <option :value="null" selected>Selecciona una opción</option>
+                <option
+                  :value="crop.id"
+                  :key="crop.id"
+                  v-for="crop in getCrops"
+                >{{ crop.type.name }} - {{ crop.init_date.split("T")[0] }}</option>
+              </d-form-select>
+            </div>
+            <button class="btn btn-primary" @click="addHarvest">Agregar</button>
           </div>
         </div>
       </div>
@@ -53,34 +52,16 @@
                 <tr>
                   <th scope="col" class="border-0">#</th>
                   <th scope="col" class="border-0">Día</th>
-                  <th scope="col" class="border-0">Toneladas</th>
-                  <th scope="col" class="border-0">Notas</th>
+                  <th scope="col" class="border-0">Cantidad</th>
+                  <th scope="col" class="border-0">Cultivo</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Ali</td>
-                  <td>Kerry</td>
-                  <td>Russian Federation</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Clark</td>
-                  <td>Angela</td>
-                  <td>Estonia</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Jerry</td>
-                  <td>Nathan</td>
-                  <td>Cyprus</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Colt</td>
-                  <td>Angela</td>
-                  <td>Liberia</td>
+                <tr v-for="(harvest, index) in harvests" :key="harvest.id">
+                  <td>{{ index + 1 }}</td>
+                  <td>{{ harvest.date.split("T")[0] }}</td>
+                  <td>{{ harvest.amount }}</td>
+                  <td>{{ nameCrop(harvest.crop.id) }} </td>
                 </tr>
               </tbody>
             </table>
@@ -90,3 +71,57 @@
     </div>
   </d-container>
 </template>
+
+<script>
+let storeModuleRanch = "ranch";
+let storeModuleSession = "session";
+import { mapGetters } from "vuex";
+
+export default {
+  name: "Diario",
+  data() {
+    return {
+      crop: null,
+      amount: false,
+      date: null
+    };
+  },
+  methods: {
+    obtainCrops() {
+      this.$store.dispatch(`${storeModuleRanch}/getCrops`);
+    },
+    obtainHarvest() {
+      this.$store.dispatch(`${storeModuleRanch}/getHarvest`);
+    },
+    addHarvest() {
+      let data = {
+        crop: this.crop,
+        amount: this.amount,
+        date: this.date,
+        ranch_id: this.getUser.ranch.id
+      };
+      this.$store.dispatch(`${storeModuleRanch}/addHarvest`, data);
+    },
+    nameCrop(id) {
+      let name = this.getCrops.filter((c) => {
+        return c.id == id;
+      })[0];
+      name = name.type.name + " - " + name.init_date.split("T")[0];
+      return name;
+    }
+  },
+  computed: {
+    ...mapGetters(storeModuleRanch, ["getCrops", "getHarvest"]),
+    ...mapGetters(storeModuleSession, ["getUser"]),
+    harvests: function(){
+      return this.getHarvest.filter((h) =>{
+        return h.date;
+      })
+    }
+  },
+  mounted() {
+    this.obtainCrops();
+    this.obtainHarvest();
+  }
+};
+</script>

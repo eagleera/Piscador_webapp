@@ -46,6 +46,13 @@
                     <button class="btn btn-primary" @click="addCrop">Agregar</button>
                   </td>
                 </tr>
+                <tr :key="crop.id" v-for="(crop, index) in getCrops">
+                  <td>{{index + 1}}</td>
+                  <td>{{ crop.type.name }}</td>
+                  <td>{{ crop.init_date.split("T")[0] }}</td>
+                  <td>{{ crop.end_date.split("T")[0] }}</td>
+                  <td></td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -77,7 +84,6 @@ export default {
       this.$store.dispatch(`${storeModuleRanch}/cropTypes`);
     },
     obtainCrops() {
-      console.log("suh");
       this.$store.dispatch(`${storeModuleRanch}/getCrops`);
     },
     addCrop() {
@@ -90,29 +96,10 @@ export default {
       this.$store.dispatch(`${storeModuleRanch}/postCrop`, data).then(() => {
       })
     }
-    // addAttendance() {
-    //   const data = {
-    //     date: moment(this.date).format("YYYY-MM-DD"),
-    //     workers: this.getWorkers
-    //   };
-    //   this.$store.dispatch(`${storeModuleAttendance}/post`, data).then(() => {
-    //     this.obtainAttendance();
-    //     this.$toasted.show("¡La asistencia del día ha sido registrada!", {
-    //       type: "success",
-    //       icon: "thumbs-up",
-    //       action: {
-    //         text: "Okay",
-    //         onClick: (e, toastObject) => {
-    //           toastObject.goAway(0);
-    //         }
-    //       }
-    //     });
-    //   });
-    // }
   },
   computed: {
     ...mapGetters(storeModuleSession, ["getUser"]),
-    ...mapGetters(storeModuleRanch, ["getCropTypes"])
+    ...mapGetters(storeModuleRanch, ["getCropTypes", "getCrops"])
   },
   mounted() {
     this.obtainCropTypes();

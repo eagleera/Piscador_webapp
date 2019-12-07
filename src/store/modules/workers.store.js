@@ -21,15 +21,9 @@ const mutations = {
   }
 };
 const actions = {
-  get({ commit }, data) {
+  get({ commit }) {
     return workersApi.get(
-      data,
       result => {
-        if (data) {
-          result.data.forEach(result => {
-            result.attendance = true;
-          });
-        }
         commit("INIT_WORKERS", result.data);
         return true;
       },

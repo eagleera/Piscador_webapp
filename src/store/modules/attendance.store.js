@@ -4,13 +4,15 @@ const state = {
   attendance: [],
   payday: [],
   cambio: [],
-  total: 0
+  total: 0,
+  daytypes: null
 };
 const getters = {
   getAttendance: state => state.attendance,
   getPayday: state => state.payday,
   getCambio: state => state.cambio,
-  getTotal: state => state.total
+  getTotal: state => state.total,
+  getDayTypes: state => state.daytypes
 };
 const mutations = {
   SET_ATTENDANCE(state, attendance) {
@@ -24,6 +26,9 @@ const mutations = {
   },
   SET_TOTAL(state, total) {
     state.total = total;
+  },
+  INIT_DAYTYPES(state, daytype) {
+    state.daytypes = daytype;
   }
 };
 const actions = {
@@ -46,6 +51,17 @@ const actions = {
         commit("SET_PAYDAY", result.data.attendance);
         commit("SET_CAMBIO", result.data.cambio);
         commit("SET_TOTAL", result.data.total);
+        return true;
+      },
+      error => {
+        return error;
+      }
+    );
+  },
+  getDayTypes({ commit }) {
+    return attendanceApi.getDayTypes(
+      result => {
+        commit("INIT_DAYTYPES", result.data);
         return true;
       },
       error => {

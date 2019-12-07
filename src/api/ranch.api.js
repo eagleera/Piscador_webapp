@@ -8,6 +8,12 @@ export default {
       .then(onSuccess)
       .catch(onError);
   },
+  postHarvest(data, onSuccess, onError) {
+    return axios
+      .post(`${config.host}/api/harvest`, data)
+      .then(onSuccess)
+      .catch(onError);
+  },
   postCrop(data, onSuccess, onError) {
     return axios
       .post(`${config.host}/api/crop`, data)
@@ -17,6 +23,12 @@ export default {
   getCrops(onSuccess, onError) {
     return axios
       .get(`${config.host}/api/crop`)
+      .then(onSuccess)
+      .catch(onError);
+  },
+  getHarvest(onSuccess, onError) {
+    return axios
+      .get(`${config.host}/api/harvest`)
       .then(onSuccess)
       .catch(onError);
   },
