@@ -20,9 +20,27 @@ export default {
       .then(onSuccess)
       .catch(onError);
   },
+  postActivity(data, onSuccess, onError) {
+    return axios
+      .post(`${config.host}/api/activity`, data)
+      .then(onSuccess)
+      .catch(onError);
+  },
   getCrops(onSuccess, onError) {
     return axios
       .get(`${config.host}/api/crop`)
+      .then(onSuccess)
+      .catch(onError);
+  },
+  getActivities(onSuccess, onError) {
+    return axios
+      .get(`${config.host}/api/activities`)
+      .then(onSuccess)
+      .catch(onError);
+  },
+  getActivity(onSuccess, onError) {
+    return axios
+      .get(`${config.host}/api/activity`)
       .then(onSuccess)
       .catch(onError);
   },

@@ -75,6 +75,13 @@
             <div class="item-icon-wrapper" />
           </d-link>
         </li>
+        <li class="nav-item" @click="handleToggleSidebar">
+          <d-link class="nav-link" to="/actividades">
+            <font-awesome-icon icon="chart-line" class="mr2" />
+            <span>Actividades</span>
+            <div class="item-icon-wrapper" />
+          </d-link>
+        </li>
       </d-nav>
     </div>
   </aside>

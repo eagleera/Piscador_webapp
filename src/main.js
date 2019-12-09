@@ -24,7 +24,8 @@ import {
   faSignOutAlt,
   faTerminal,
   faExchangeAlt,
-  faHatCowboySide
+  faHatCowboySide,
+  faChartLine
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Vue2Filters from "vue2-filters";
@@ -56,7 +57,8 @@ library.add(
   faSignOutAlt,
   faTerminal,
   faExchangeAlt,
-  faHatCowboySide
+  faHatCowboySide,
+  faChartLine
 );
 Vue.config.productionTip = false;
 Vue.prototype.$eventHub = new Vue();

@@ -3,6 +3,7 @@ import store from "./store/index";
 import Layout from "./views/Layout.vue";
 import Router from "vue-router";
 //VIEWS
+import Activity from "./views/Activity.vue";
 import Asistencia from "./views/Asistencia.vue";
 import Diario from "./views/Diario.vue";
 import FirstTime from "./views/FirstTime.vue";
@@ -48,6 +49,10 @@ const router = new Router({
         {
           path: "/ranch",
           component: Ranch
+        },
+        {
+          path: "/actividades",
+          component: Activity
         }
       ]
     },

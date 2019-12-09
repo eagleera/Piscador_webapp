@@ -5,14 +5,18 @@ const state = {
   sizes: null,
   croptypes: null,
   crops: null,
-  harvest: null
+  harvest: null,
+  activities: null,
+  activity: null
 };
 const getters = {
   getRanch: state => state.ranch,
   getSizes: state => state.sizes,
   getCropTypes: state => state.croptypes,
   getCrops: state => state.crops,
-  getHarvest: state => state.harvest
+  getHarvest: state => state.harvest,
+  getActivities: state => state.activities,
+  getActivity: state => state.activity
 };
 const mutations = {
   INIT_RANCH(state, ranch) {
@@ -29,6 +33,12 @@ const mutations = {
   },
   INIT_HARVEST(state, harvest) {
     state.harvest = harvest;
+  },
+  INIT_ACTIVITIES(state, activities) {
+    state.activities = activities;
+  },
+  INIT_ACTIVITY(state, activity) {
+    state.activity = activity;
   }
 };
 const actions = {
@@ -50,6 +60,17 @@ const actions = {
       data,
       res => {
         console.log(res);
+        return res;
+      },
+      error => {
+        return error;
+      }
+    );
+  },
+  addActivity({ commit }, data) {
+    return ranchApi.postActivity(
+      data,
+      res => {
         return res;
       },
       error => {
@@ -86,6 +107,28 @@ const actions = {
       res => {
         commit("INIT_HARVEST", res.data);
         console.log(res);
+        return res;
+      },
+      error => {
+        return error;
+      }
+    );
+  },
+  getActivities({ commit }) {
+    return ranchApi.getActivities(
+      res => {
+        commit("INIT_ACTIVITIES", res.data);
+        return res;
+      },
+      error => {
+        return error;
+      }
+    );
+  },
+  getActivity({ commit }) {
+    return ranchApi.getActivity(
+      res => {
+        commit("INIT_ACTIVITY", res.data);
         return res;
       },
       error => {
