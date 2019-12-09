@@ -9,7 +9,7 @@
         <d-datepicker placeholder="Fecha inicio" v-model="init_date" typeable />
         <d-datepicker placeholder="Fecha fin" v-model="end_date" typeable />
         <d-input-group-text slot="append" class="btn-search">
-          <div @click="obtainAttendance(false)">
+          <div @click="obtainAttendance()">
             <font-awesome-icon icon="search" />
             Buscar
           </div>
@@ -135,54 +135,21 @@ export default {
   name: "Payday",
   data() {
     return {
-      init_date: new Date(Date.now()).toLocaleString().slice(0, 10),
-      end_date: new Date(Date.now()).toLocaleString().slice(0, 10),
+      init_date: null,
+      end_date: null,
       dates: [],
       loading: false
     };
   },
   methods: {
-    obtainAttendance(first) {
-      this.loading = true;
-      if (first) {
-        this.init_date = moment(this.init_date)
-          .startOf("week")
-          .format("l");
-      } else {
-        this.init_date = moment(this.init_date).format("l");
-      }
+    obtainAttendance() {
       const data = {
         init_date: this.init_date,
-        end_date: moment(this.end_date).format("l")
+        end_date: this.end_date
       };
-      this.init_date = this.init_date
-        .split(/\//)
-        .reverse()
-        .join("/");
-      this.enumerateDaysBetweenDates(this.init_date, this.end_date);
       this.$store.dispatch(`${storeModule}/getPayday`, data).then(() => {
         this.loading = false;
       });
-    },
-    enumerateDaysBetweenDates(startDate, endDate) {
-      this.dates = [];
-      var dateminus = moment(startDate)
-        .startOf("day")
-        .subtract(1, "days");
-      var lastDate = moment(endDate).startOf("day");
-      while (dateminus.add(1, "days").diff(lastDate) <= 0) {
-        this.dates.push({
-          letra: dateminus.clone().format("dddd"),
-          dia: dateminus.clone().format("YYYY-MM-DD")
-        });
-      }
-    },
-    nombreMoneda(index) {
-      const monedas = [500, 200, 100, 50, 20, 10, 5];
-      return monedas[index];
-    },
-    round5(x) {
-      return Math.round(x / 5) * 5;
     }
   },
   computed: {

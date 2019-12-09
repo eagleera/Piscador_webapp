@@ -20,20 +20,12 @@ export default {
   },
   getPayday(data, onSuccess, onError) {
     return axios
-      .get(
-        `${config.host}/attendance/payday`,
-        {
-          params: {
-            init_date: data.init_date,
-            end_date: data.end_date
-          }
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("accessToken")
-          }
+      .get(`${config.host}/api/attendance`, {
+        params: {
+          init_date: data.init_date,
+          end_date: data.end_date
         }
-      )
+      })
       .then(onSuccess)
       .catch(onError);
   },

@@ -61,7 +61,7 @@
                   <td>{{ index + 1 }}</td>
                   <td>{{ harvest.date.split("T")[0] }}</td>
                   <td>{{ harvest.amount }}</td>
-                  <td>{{ nameCrop(harvest.crop.id) }} </td>
+                  <td>{{ nameCrop(harvest.crop.id) }}</td>
                 </tr>
               </tbody>
             </table>
@@ -100,10 +100,24 @@ export default {
         date: this.date,
         ranch_id: this.getUser.ranch.id
       };
-      this.$store.dispatch(`${storeModuleRanch}/addHarvest`, data);
+      this.$store.dispatch(`${storeModuleRanch}/addHarvest`, data).then(() => {
+        this.$toasted.show(
+        "¡Tu cantidad ha sido registrada!",
+        {
+          type: "success",
+          icon: "thumbs-up",
+          action: {
+            text: "Okay",
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0);
+            }
+          }
+        }
+      );
+      });
     },
     nameCrop(id) {
-      let name = this.getCrops.filter((c) => {
+      let name = this.getCrops.filter(c => {
         return c.id == id;
       })[0];
       name = name.type.name + " - " + name.init_date.split("T")[0];
@@ -113,10 +127,12 @@ export default {
   computed: {
     ...mapGetters(storeModuleRanch, ["getCrops", "getHarvest"]),
     ...mapGetters(storeModuleSession, ["getUser"]),
-    harvests: function(){
-      return this.getHarvest.filter((h) =>{
-        return h.date;
-      })
+    harvests: function() {
+      if (this.getHarvest) {
+        return this.getHarvest.filter(h => {
+          return h.date;
+        });
+      }
     }
   },
   mounted() {

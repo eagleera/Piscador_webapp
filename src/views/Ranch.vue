@@ -94,6 +94,19 @@ export default {
         ranch_id: this.getUser.ranch.id
       }
       this.$store.dispatch(`${storeModuleRanch}/postCrop`, data).then(() => {
+        this.$toasted.show(
+        "¡Tu cultivo ha sido creado!",
+        {
+          type: "success",
+          icon: "thumbs-up",
+          action: {
+            text: "Okay",
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0);
+            }
+          }
+        }
+      );
       })
     }
   },
